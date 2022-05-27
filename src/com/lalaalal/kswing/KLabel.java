@@ -1,6 +1,7 @@
 package com.lalaalal.kswing;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class KLabel extends KComponent {
 	public enum Alignment {
@@ -50,6 +51,10 @@ public class KLabel extends KComponent {
 
 	public void setFont(Font font) {
 		this.font = font;
+	}
+
+	public void setAlignment(Alignment alignment) {
+		this.alignment = alignment;
 	}
 
 	@Override

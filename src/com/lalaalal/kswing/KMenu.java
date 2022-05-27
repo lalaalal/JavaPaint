@@ -4,31 +4,44 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class KMenu extends KAbstractButton {
-    private final KContainer container = new KContainer(0, 0);
+    private static final int DEFAULT_CONTAINER_WIDTH = 150;
+
+    private final KContainer container = new KContainer(0, 0, DEFAULT_CONTAINER_WIDTH, WRAP_CONTENT);
 
     public KMenu(String text) {
         super(text);
         setPadding(5, 10, 5, 10);
+        setBorder(false);
 
         container.setLayout(new KLinearKLayout(KLinearKLayout.Orientation.Vertical));
         container.setPadding(0, 0, 0, 0);
         container.setVisible(false);
+        container.setBorder(true);
     }
 
     public void open() {
         container.setVisible(true);
+        setBackgroundColor(Color.GRAY);
     }
 
     public void close() {
         container.setVisible(false);
+        setBackgroundColor(Color.WHITE);
     }
 
-    public void toggle() {
-        container.setVisible(!container.isVisible());
+    public boolean toggle() {
+        if (container.isVisible())
+            close();
+        else open();
+
+        return container.isVisible();
     }
 
     public void addMenuItem(KComponent component) {
         container.add(component);
+        component.setBorder(false);
+
+        repaint();
     }
 
     @Override
@@ -38,7 +51,14 @@ public class KMenu extends KAbstractButton {
     }
 
     @Override
-    public void processMouseEvent(MouseEvent event) {
+    protected void processMouseMotionEvent(MouseEvent event) {
+        super.processMouseMotionEvent(event);
+        container.processMouseMotionEvent(event);
+    }
+
+    @Override
+    protected void processMouseEvent(MouseEvent event) {
+        super.processMouseEvent(event);
         container.processMouseEvent(event);
     }
 

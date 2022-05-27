@@ -11,7 +11,7 @@ public class KAdapterFrame extends JFrame {
 
     public KAdapterFrame() {
         setSize(800, 500);
-        enableEvents(AWTEvent.MOUSE_EVENT_MASK);
+        enableEvents(AWTEvent.MOUSE_EVENT_MASK | AWTEvent.MOUSE_MOTION_EVENT_MASK);
         getContentPane().setBackground(Color.WHITE);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
@@ -21,7 +21,7 @@ public class KAdapterFrame extends JFrame {
         this.frame = frame;
         frame.setWidth(getWidth());
         frame.setHeight(getHeight());
-        
+
     }
 
     @Override
@@ -29,6 +29,12 @@ public class KAdapterFrame extends JFrame {
         super.paint(graphics);
         if (frame != null)
             frame.paint(graphics);
+    }
+
+    @Override
+    protected void processMouseMotionEvent(MouseEvent mouseEvent) {
+        if (frame != null)
+            frame.processMouseMotionEvent(mouseEvent);
     }
 
     @Override

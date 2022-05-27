@@ -1,10 +1,9 @@
 package com.lalaalal.kswing;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class KButton extends KAbstractButton {
-    private Color backgroundColor = Color.WHITE;
-
     public KButton(String text) {
         super(text);
     }
@@ -15,17 +14,5 @@ public class KButton extends KAbstractButton {
 
     public KButton(int x, int y, int width, int height, String text) {
         super(x, y, width, height, text);
-    }
-
-    public void setBackgroundColor(Color backgroundColor) {
-        this.backgroundColor = backgroundColor;
-    }
-
-    @Override
-    protected void paintContent(Graphics graphics) {
-        graphics.setColor(backgroundColor);
-        graphics.fillRect(x, y, getWidth(), getHeight());
-
-        super.paintContent(graphics);
     }
 }

@@ -40,12 +40,16 @@ public class KFrame extends KContainer {
     }
 
     @Override
-    public void processMouseEvent(MouseEvent event) {
-        if (event.getID() == MouseEvent.MOUSE_CLICKED) {
-            if (menuBar != null && menuBar.contains(event.getX(), event.getY()))
-                menuBar.processMouseEvent(event);
-        }
+    protected void processMouseMotionEvent(MouseEvent event) {
+        if (menuBar != null)
+            menuBar.processMouseMotionEvent(event);
+        super.processMouseMotionEvent(event);
+    }
 
+    @Override
+    protected void processMouseEvent(MouseEvent event) {
+        if (menuBar != null)
+            menuBar.processMouseEvent(event);
         super.processMouseEvent(event);
     }
 

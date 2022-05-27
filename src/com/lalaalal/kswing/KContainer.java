@@ -30,7 +30,15 @@ public class KContainer extends KComponent {
     }
 
     @Override
-    public void processMouseEvent(MouseEvent event) {
+    protected void processMouseMotionEvent(MouseEvent event) {
+        super.processMouseMotionEvent(event);
+        for (KComponent component : children) {
+            component.processMouseMotionEvent(event);
+        }
+    }
+
+    @Override
+    protected void processMouseEvent(MouseEvent event) {
         super.processMouseEvent(event);
         for (KComponent component : children) {
             if (component.contains(event.getX(), event.getY()))
@@ -62,14 +70,14 @@ public class KContainer extends KComponent {
         if (layout != null)
             layout.adjustComponents(children, this);
 
-        if (showBorder)
-            graphics.drawRect(x, y, getWidth(), getHeight());
-
         int i = 0;
         while (i < children.size()) {
             KComponent component = children.get(i);
             component.paint(graphics);
             i++;
         }
+
+        if (showBorder)
+            graphics.drawRect(x, y, getWidth(), getHeight());
     }
 }

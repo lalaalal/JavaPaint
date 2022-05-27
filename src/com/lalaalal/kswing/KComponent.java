@@ -143,7 +143,11 @@ public abstract class KComponent {
 		this.listeners.add(listener);
 	}
 
-	public void processMouseEvent(MouseEvent event) {
+	protected void processMouseMotionEvent(MouseEvent event) {
+
+	}
+
+	protected void processMouseEvent(MouseEvent event) {
 		for (KActionListener listener : listeners) {
 			listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Action"));
 		}
