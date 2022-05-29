@@ -7,7 +7,7 @@ public class KMenuBar extends KContainer {
 
     public KMenuBar() {
         super(0, 0, MATCH_PARENT, WRAP_CONTENT);
-        setLayout(new KLinearKLayout(KLinearKLayout.Orientation.Horizontal));
+        setLayout(KLinearKLayout.Horizontal);
         setPadding(0, 0, 0, 0);
         setBorder(true);
     }

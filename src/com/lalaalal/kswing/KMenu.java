@@ -14,7 +14,7 @@ public class KMenu extends KAbstractButton {
         setBorder(false);
         setTextAlignment(Alignment.Left);
 
-        container.setLayout(new KLinearKLayout(KLinearKLayout.Orientation.Vertical));
+        container.setLayout(KLinearKLayout.Vertical);
         container.setPadding(0, 0, 0, 0);
         container.setVisible(false);
         container.setBorder(true);

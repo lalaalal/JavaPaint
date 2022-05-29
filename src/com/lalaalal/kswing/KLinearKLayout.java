@@ -7,9 +7,12 @@ public class KLinearKLayout implements KLayoutManager {
         Vertical, Horizontal
     }
 
+    public final static KLinearKLayout Horizontal = new KLinearKLayout(Orientation.Horizontal);
+    public final static KLinearKLayout Vertical = new KLinearKLayout(Orientation.Vertical);
+
     public Orientation orientation;
 
-    public KLinearKLayout(Orientation orientation) {
+    private KLinearKLayout(Orientation orientation) {
         this.orientation = orientation;
     }
 
@@ -28,7 +31,7 @@ public class KLinearKLayout implements KLayoutManager {
         int prevMargin = 0;
         for (KComponent component : components) {
             y += Math.max(prevMargin, component.margin.top);
-            component.setPoint(x, y);
+            component.setPoint(x + component.margin.left, y);
             y += component.getHeight();
             prevMargin = component.margin.bottom;
         }
@@ -38,7 +41,7 @@ public class KLinearKLayout implements KLayoutManager {
         int prevMargin = 0;
         for (KComponent component : components) {
             x += Math.max(prevMargin, component.margin.left);
-            component.setPoint(x, y);
+            component.setPoint(x, y + component.margin.top);
             x += component.getWidth();
             prevMargin = component.margin.right;
         }
@@ -91,12 +94,14 @@ public class KLinearKLayout implements KLayoutManager {
 
         int numWidthMatchParent = 0;
         int usedWidth = 0;
+        int prevMargin = 0;
         for (KComponent component : components) {
             if (component.getWidthProperty() == KComponent.MATCH_PARENT)
                 numWidthMatchParent += 1;
             else
                 usedWidth += component.getWidth();
-            usedWidth += component.margin.left + component.margin.right;
+            usedWidth += Math.max(prevMargin, component.margin.left);
+            prevMargin = component.margin.right;
         }
 
         return (container.getContentWidth() - usedWidth) / numWidthMatchParent;
@@ -109,12 +114,14 @@ public class KLinearKLayout implements KLayoutManager {
 
         int numHeightMatchParent = 0;
         int usedHeight = 0;
+        int prevMargin = 0;
         for (KComponent component : components) {
             if (component.getHeightProperty() == KComponent.MATCH_PARENT)
                 numHeightMatchParent += 1;
             else
                 usedHeight += component.getHeight();
-            usedHeight += component.margin.top + component.margin.bottom;
+            usedHeight += Math.max(prevMargin, component.margin.top);
+            prevMargin = component.margin.bottom;
         }
 
         return (container.getContentHeight() - usedHeight) / numHeightMatchParent;

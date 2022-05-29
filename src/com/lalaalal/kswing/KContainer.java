@@ -8,6 +8,11 @@ public class KContainer extends KComponent {
     protected final ArrayList<KComponent> children = new ArrayList<>();
     private KLayoutManager layout = null;
 
+    public KContainer() {
+        super(0, 0, WRAP_CONTENT, WRAP_CONTENT);
+        setBorder(false);
+    }
+
     public KContainer(int x, int y) {
         super(x, y, WRAP_CONTENT, WRAP_CONTENT);
         setBorder(false);
@@ -24,6 +29,14 @@ public class KContainer extends KComponent {
         component.move(x, y);
 
         repaint();
+    }
+
+    public void remove(KComponent component) {
+        children.remove(component);
+    }
+
+    public void clear() {
+        children.clear();
     }
 
     public int getMatchParentWidth() {
