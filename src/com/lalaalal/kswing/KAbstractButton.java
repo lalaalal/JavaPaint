@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public abstract class KAbstractButton extends KLabel {
-	private Color backgroundColor = Color.WHITE;
 
 	public KAbstractButton(String text) {
 		super(text);
@@ -18,15 +17,6 @@ public abstract class KAbstractButton extends KLabel {
 		super(x, y, width, height, text);
 	}
 
-	public void setBackgroundColor(Color backgroundColor) {
-		this.backgroundColor = backgroundColor;
-		repaint();
-	}
-
-	public Color getBackgroundColor() {
-		return backgroundColor;
-	}
-
 	@Override
 	protected void processMouseMotionEvent(MouseEvent event) {
 		super.processMouseMotionEvent(event);
@@ -35,13 +25,5 @@ public abstract class KAbstractButton extends KLabel {
 			setBackgroundColor(Color.GRAY);
 		else
 			setBackgroundColor(Color.WHITE);
-	}
-
-	@Override
-	protected void paintContent(Graphics graphics) {
-		graphics.setColor(getBackgroundColor());
-		graphics.fillRect(x, y, getWidth(), getHeight());
-
-		super.paintContent(graphics);
 	}
 }

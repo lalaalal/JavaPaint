@@ -39,9 +39,12 @@ public class KMenu extends KAbstractButton {
 
     public void addMenuItem(KComponent component) {
         container.add(component);
-        component.setBorder(false);
 
         repaint();
+    }
+
+    public void addDivider() {
+        addMenuItem(new KMenuItemDivider());
     }
 
     @Override

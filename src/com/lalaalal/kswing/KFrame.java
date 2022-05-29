@@ -15,6 +15,7 @@ public class KFrame extends KContainer {
         super(0, 0);
         this.adapterFrame = adapterFrame;
         setContentPane(new KPanel());
+        contentPane.setParent(this);
         setPadding(0, 0, 0, 0);
     }
 
@@ -41,20 +42,31 @@ public class KFrame extends KContainer {
 
     @Override
     protected void processMouseMotionEvent(MouseEvent event) {
+        if (menuBar == null || !menuBar.contains(event.getX(), event.getY())) {
+            contentPane.processMouseMotionEvent(event);
+            super.processMouseMotionEvent(event);
+        }
+
         if (menuBar != null)
             menuBar.processMouseMotionEvent(event);
-        super.processMouseMotionEvent(event);
     }
 
     @Override
     protected void processMouseEvent(MouseEvent event) {
+        if (menuBar == null || !menuBar.contains(event.getX(), event.getY())) {
+            contentPane.processMouseEvent(event);
+            super.processMouseEvent(event);
+        }
+
         if (menuBar != null)
             menuBar.processMouseEvent(event);
-        super.processMouseEvent(event);
     }
 
     @Override
     protected void measureContentSize(Graphics graphics) {
+        setWidth(adapterFrame.getWidth());
+        setHeight(adapterFrame.getHeight());
+
         super.measureContentSize(graphics);
         if (menuBar != null)
             menuBar.measureContentSize(graphics);
@@ -67,15 +79,13 @@ public class KFrame extends KContainer {
         }
 
         contentPane.setPoint(x, menuBarHeight + adapterFrame.getInsets().top);
-        setWidth(adapterFrame.getWidth());
-        setHeight(adapterFrame.getHeight());
     }
 
     @Override
     protected void paintContent(Graphics graphics) {
         super.paintContent(graphics);
+        contentPane.paint(graphics);
         if (menuBar != null)
             menuBar.paint(graphics);
-        contentPane.paint(graphics);
     }
 }

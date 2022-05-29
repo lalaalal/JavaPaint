@@ -1,8 +1,5 @@
 package com.lalaalal.kswing;
 
-import java.awt.*;
-import java.awt.event.MouseEvent;
-
 public class KButton extends KAbstractButton {
     public KButton(String text) {
         super(text);

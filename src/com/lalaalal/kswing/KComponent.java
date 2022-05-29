@@ -47,7 +47,8 @@ public abstract class KComponent {
 
 	private boolean isVisible = true;
 	protected boolean showBorder = true;
-	private final ArrayList<KActionListener> listeners = new ArrayList<>();
+	private final ArrayList<KActionListener> actionListeners = new ArrayList<>();
+	private final ArrayList<KMouseListener> mouseListeners = new ArrayList<>();
 
 	public KComponent(int x, int y, int width, int height) {
 		this.x = x;
@@ -140,7 +141,11 @@ public abstract class KComponent {
 	}
 
 	public void addActionListener(KActionListener listener) {
-		this.listeners.add(listener);
+		this.actionListeners.add(listener);
+	}
+
+	public void addMouseListener(KMouseListener listener) {
+		this.mouseListeners.add(listener);
 	}
 
 	protected void processMouseMotionEvent(MouseEvent event) {
@@ -148,14 +153,22 @@ public abstract class KComponent {
 	}
 
 	protected void processMouseEvent(MouseEvent event) {
-		for (KActionListener listener : listeners) {
+		for (KActionListener listener : actionListeners)
 			listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Action"));
+
+		for (KMouseListener listener : mouseListeners) {
+			if (event.getID() == MouseEvent.MOUSE_CLICKED)
+				listener.mouseClicked(event);
+			else if (event.getID() == MouseEvent.MOUSE_RELEASED)
+				listener.mouseReleased(event);
+			else if (event.getID() == MouseEvent.MOUSE_PRESSED)
+				listener.mousePressed(event);
 		}
 	}
 
 	public boolean contains(int x, int y) {
-		return (this.x <= x && x <= this.x + getWidth())
-				&& (this.y <= y && y <= this.y + getHeight());
+		return (this.x < x && x < this.x + getWidth())
+				&& (this.y < y && y < this.y + getHeight());
 	}
 
 	private void measureSize(Graphics graphics) {

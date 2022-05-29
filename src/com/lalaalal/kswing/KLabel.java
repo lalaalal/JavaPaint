@@ -1,7 +1,6 @@
 package com.lalaalal.kswing;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 
 public class KLabel extends KComponent {
 	public enum Alignment {
@@ -14,6 +13,7 @@ public class KLabel extends KComponent {
 
 	private Color textColor = Color.BLACK;
 	private Color borderColor = Color.BLACK;
+	private Color backgroundColor = Color.WHITE;
 	private Font font = new Font("Sans", Font.PLAIN, 12);
 
 	private Alignment alignment = Alignment.Left;
@@ -35,6 +35,7 @@ public class KLabel extends KComponent {
 
 	public void setText(String text) {
 		this.text = text;
+		repaint();
 	}
 
 	public String getText() {
@@ -49,11 +50,20 @@ public class KLabel extends KComponent {
 		this.textColor = textColor;
 	}
 
+	public void setBackgroundColor(Color backgroundColor) {
+		this.backgroundColor = backgroundColor;
+		repaint();
+	}
+
+	public Color getBackgroundColor() {
+		return backgroundColor;
+	}
+
 	public void setFont(Font font) {
 		this.font = font;
 	}
 
-	public void setAlignment(Alignment alignment) {
+	public void setTextAlignment(Alignment alignment) {
 		this.alignment = alignment;
 	}
 
@@ -69,7 +79,7 @@ public class KLabel extends KComponent {
 		textY = y + measureVerticalInterval(textHeight) + textAscent;
 	}
 
-	private int measureHorizontalInterval(int textWidth) {
+	protected int measureHorizontalInterval(int textWidth) {
 		int horizontalInterval = padding.left;
 		if (width == WRAP_CONTENT) {
 			measuredWidth = textWidth + padding.left + padding.right;
@@ -79,7 +89,7 @@ public class KLabel extends KComponent {
 		return horizontalInterval;
 	}
 
-	private int measureVerticalInterval(int textHeight) {
+	protected int measureVerticalInterval(int textHeight) {
 		int verticalInterval = padding.top;
 		if (height == WRAP_CONTENT) {
 			measuredHeight = textHeight + padding.top + padding.bottom;
@@ -91,12 +101,15 @@ public class KLabel extends KComponent {
 
 	@Override
 	protected void paintContent(Graphics graphics) {
+		graphics.setColor(backgroundColor);
+		graphics.fillRect(x, y, getWidth(), getHeight());
+
+		graphics.setColor(textColor);
+		graphics.drawString(text, textX, textY);
+
 		if (showBorder) {
 			graphics.setColor(borderColor);
 			graphics.drawRect(x, y, getWidth(), getHeight());
 		}
-
-		graphics.setColor(textColor);
-		graphics.drawString(text, textX, textY);
 	}
 }

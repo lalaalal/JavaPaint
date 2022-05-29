@@ -6,5 +6,6 @@ public class KMenuItem extends KAbstractButton {
         super(text);
         setPadding(5, 10, 5, 10);
         setWidth(MATCH_PARENT);
+        setBorder(false);
     }
 }
