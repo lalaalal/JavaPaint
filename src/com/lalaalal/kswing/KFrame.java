@@ -36,6 +36,13 @@ public class KFrame extends KContainer {
     }
 
     @Override
+    public int getContentHeight() {
+        if (menuBar != null)
+            return super.getContentHeight() - menuBar.getHeight() - adapterFrame.getInsets().top;
+        return super.getContentHeight() - adapterFrame.getInsets().top;
+    }
+
+    @Override
     public void repaint() {
         adapterFrame.repaint();
     }
