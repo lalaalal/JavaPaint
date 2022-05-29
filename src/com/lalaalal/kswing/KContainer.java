@@ -26,6 +26,18 @@ public class KContainer extends KComponent {
         repaint();
     }
 
+    public int getMatchParentWidth() {
+        if (layout == null)
+            return getContentWidth();
+        return layout.calculateMatchParentWidth(children, this);
+    }
+
+    public int getMatchParentHeight() {
+        if (layout == null)
+            return getContentHeight();
+        return layout.calculateMatchParentHeight(children, this);
+    }
+
     public void setLayout(KLayoutManager layout) {
         this.layout = layout;
     }
@@ -59,20 +71,22 @@ public class KContainer extends KComponent {
     }
 
     @Override
-    protected void measureContentSize(Graphics graphics) {
+    protected void measureSize(Graphics graphics) {
+        super.measureSize(graphics);
+
         int i = 0;
         while (i < children.size()) {
             KComponent component = children.get(i);
-            component.measureContentSize(graphics);
+            component.measureSize(graphics);
             i++;
         }
 
         if (layout == null)
             return;
 
-        if (width == WRAP_CONTENT)
+        if (getWidthProperty() == WRAP_CONTENT)
             measuredWidth = layout.measureWidth(children, this);
-        if (height == WRAP_CONTENT)
+        if (getHeightProperty() == WRAP_CONTENT)
             measuredHeight = layout.measureHeight(children, this);
     }
 

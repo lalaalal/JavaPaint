@@ -12,6 +12,7 @@ public class KMenu extends KAbstractButton {
         super(text);
         setPadding(5, 10, 5, 10);
         setBorder(false);
+        setTextAlignment(Alignment.Left);
 
         container.setLayout(new KLinearKLayout(KLinearKLayout.Orientation.Vertical));
         container.setPadding(0, 0, 0, 0);
@@ -66,8 +67,8 @@ public class KMenu extends KAbstractButton {
     }
 
     @Override
-    protected void measureContentSize(Graphics graphics) {
-        super.measureContentSize(graphics);
+    protected void measureSize(Graphics graphics) {
+        super.measureSize(graphics);
         container.setPoint(x + container.margin.left, y + getHeight() + container.margin.top);
     }
 

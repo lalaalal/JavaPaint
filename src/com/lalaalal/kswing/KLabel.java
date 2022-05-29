@@ -16,7 +16,7 @@ public class KLabel extends KComponent {
 	private Color backgroundColor = Color.WHITE;
 	private Font font = new Font("Sans", Font.PLAIN, 12);
 
-	private Alignment alignment = Alignment.Left;
+	private Alignment alignment = Alignment.Center;
 
 	public KLabel(String text) {
 		super(0, 0, WRAP_CONTENT, WRAP_CONTENT);
@@ -68,7 +68,9 @@ public class KLabel extends KComponent {
 	}
 
 	@Override
-	protected void measureContentSize(Graphics graphics) {
+	protected void measureSize(Graphics graphics) {
+		super.measureSize(graphics);
+
 		graphics.setFont(font);
 		FontMetrics fontMetrics = graphics.getFontMetrics();
 		int textWidth = fontMetrics.stringWidth(text);
@@ -81,7 +83,7 @@ public class KLabel extends KComponent {
 
 	protected int measureHorizontalInterval(int textWidth) {
 		int horizontalInterval = padding.left;
-		if (width == WRAP_CONTENT) {
+		if (getWidthProperty() == WRAP_CONTENT) {
 			measuredWidth = textWidth + padding.left + padding.right;
 		} else if (alignment == Alignment.Center) {
 			horizontalInterval = (getWidth() - textWidth) / 2;
@@ -91,7 +93,7 @@ public class KLabel extends KComponent {
 
 	protected int measureVerticalInterval(int textHeight) {
 		int verticalInterval = padding.top;
-		if (height == WRAP_CONTENT) {
+		if (getHeightProperty() == WRAP_CONTENT) {
 			measuredHeight = textHeight + padding.top + padding.bottom;
 		} else {
 			verticalInterval = (getHeight() - textHeight) / 2;

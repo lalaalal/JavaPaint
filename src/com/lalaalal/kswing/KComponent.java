@@ -38,8 +38,8 @@ public abstract class KComponent {
 	protected BoxModel margin = new BoxModel(DEFAULT_MARGIN);
 
 	protected int x, y;
-	protected int width;
-	protected int height;
+	private int width;
+	private int height;
 	protected int measuredWidth;
 	protected int measuredHeight;
 
@@ -71,6 +71,14 @@ public abstract class KComponent {
 		if (width == WRAP_CONTENT || width == MATCH_PARENT)
 			return measuredWidth;
 		return width;
+	}
+
+	public int getWidthProperty() {
+		return width;
+	}
+
+	public int getHeightProperty() {
+		return height;
 	}
 
 	public int getContentWidth() {
@@ -176,16 +184,12 @@ public abstract class KComponent {
 				&& (this.y < y && y < this.y + getHeight());
 	}
 
-	private void measureSize(Graphics graphics) {
+	protected void measureSize(Graphics graphics) {
 		if (width == MATCH_PARENT && parent != null)
-			measuredWidth = parent.getContentWidth();
+			measuredWidth = parent.getMatchParentWidth();
 		if (height == MATCH_PARENT && parent != null)
-			measuredHeight = parent.getContentHeight();
-
-		measureContentSize(graphics);
+			measuredHeight = parent.getMatchParentHeight();
 	}
-
-	protected abstract void measureContentSize(Graphics graphics);
 
 	public void paint(Graphics graphics) {
 		if (isVisible) {

@@ -7,4 +7,7 @@ public interface KLayoutManager {
 
     int measureWidth(ArrayList<KComponent> components, KContainer container);
     int measureHeight(ArrayList<KComponent> components, KContainer container);
+
+    int calculateMatchParentWidth(ArrayList<KComponent> components, KContainer container);
+    int calculateMatchParentHeight(ArrayList<KComponent> components, KContainer container);
 }

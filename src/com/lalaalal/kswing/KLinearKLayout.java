@@ -84,5 +84,41 @@ public class KLinearKLayout implements KLayoutManager {
         return height + padding;
     }
 
+    @Override
+    public int calculateMatchParentWidth(ArrayList<KComponent> components, KContainer container) {
+        if (orientation == Orientation.Vertical)
+            return container.getContentWidth();
+
+        int numWidthMatchParent = 0;
+        int usedWidth = 0;
+        for (KComponent component : components) {
+            if (component.getWidthProperty() == KComponent.MATCH_PARENT)
+                numWidthMatchParent += 1;
+            else
+                usedWidth += component.getWidth();
+            usedWidth += component.margin.left + component.margin.right;
+        }
+
+        return (container.getContentWidth() - usedWidth) / numWidthMatchParent;
+    }
+
+    @Override
+    public int calculateMatchParentHeight(ArrayList<KComponent> components, KContainer container) {
+        if (orientation == Orientation.Horizontal)
+            return container.getContentHeight();
+
+        int numHeightMatchParent = 0;
+        int usedHeight = 0;
+        for (KComponent component : components) {
+            if (component.getHeightProperty() == KComponent.MATCH_PARENT)
+                numHeightMatchParent += 1;
+            else
+                usedHeight += component.getHeight();
+            usedHeight += component.margin.top + component.margin.bottom;
+        }
+
+        return (container.getContentHeight() - usedHeight) / numHeightMatchParent;
+    }
+
 
 }

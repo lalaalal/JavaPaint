@@ -5,6 +5,7 @@ public class KMenuItem extends KAbstractButton {
     public KMenuItem(String text) {
         super(text);
         setPadding(5, 10, 5, 10);
+        setTextAlignment(Alignment.Left);
         setWidth(MATCH_PARENT);
         setBorder(false);
     }

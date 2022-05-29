@@ -70,14 +70,14 @@ public class KFrame extends KContainer {
     }
 
     @Override
-    protected void measureContentSize(Graphics graphics) {
+    protected void measureSize(Graphics graphics) {
         setWidth(adapterFrame.getWidth());
         setHeight(adapterFrame.getHeight());
 
-        super.measureContentSize(graphics);
+        super.measureSize(graphics);
         if (menuBar != null)
-            menuBar.measureContentSize(graphics);
-        contentPane.measureContentSize(graphics);
+            menuBar.measureSize(graphics);
+        contentPane.measureSize(graphics);
 
         int menuBarHeight = 0;
         if (menuBar != null) {

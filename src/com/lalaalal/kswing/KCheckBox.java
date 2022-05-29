@@ -28,7 +28,6 @@ public class KCheckBox extends KAbstractButton {
         setBorder(false);
         checkIcon.setPadding(0, 5, 0, 5);
         checkIcon.addActionListener(event -> toggle());
-        checkIcon.setTextAlignment(Alignment.Center);
     }
 
     public void setCheck(boolean value) {
@@ -59,11 +58,11 @@ public class KCheckBox extends KAbstractButton {
     }
 
     @Override
-    protected void measureContentSize(Graphics graphics) {
+    protected void measureSize(Graphics graphics) {
         checkIcon.setPoint(x + padding.left, y + padding.top);
-        checkIcon.measureContentSize(graphics);
+        checkIcon.measureSize(graphics);
         checkIcon.setWidth(checkIcon.getHeight());
-        super.measureContentSize(graphics);
+        super.measureSize(graphics);
     }
 
     @Override

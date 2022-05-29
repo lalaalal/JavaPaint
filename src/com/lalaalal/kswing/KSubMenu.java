@@ -27,8 +27,8 @@ public class KSubMenu extends KMenu {
     }
 
     @Override
-    protected void measureContentSize(Graphics graphics) {
-        super.measureContentSize(graphics);
+    protected void measureSize(Graphics graphics) {
+        super.measureSize(graphics);
         container.setPoint(x + getWidth() + container.margin.left, y + container.margin.top);
     }
 
