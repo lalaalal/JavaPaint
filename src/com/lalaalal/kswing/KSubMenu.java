@@ -7,6 +7,7 @@ public class KSubMenu extends KMenu {
     public KSubMenu(String text) {
         super(text);
         setWidth(MATCH_PARENT);
+        setPadding(KMenuItem.DEFAULT_MENU_ITEM_PADDING);
     }
 
     @Override

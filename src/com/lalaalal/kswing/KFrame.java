@@ -16,6 +16,7 @@ public class KFrame extends KContainer {
         this.adapterFrame = adapterFrame;
         setContentPane(new KPanel());
         contentPane.setParent(this);
+        contentPane.setBorder(true);
         setPadding(0, 0, 0, 0);
     }
 
@@ -49,7 +50,7 @@ public class KFrame extends KContainer {
 
     @Override
     protected void processMouseMotionEvent(MouseEvent event) {
-        if (menuBar == null || !menuBar.contains(event.getX(), event.getY())) {
+        if (menuBar == null || !menuBar.isMenuOpened()) {
             contentPane.processMouseMotionEvent(event);
             super.processMouseMotionEvent(event);
         }
@@ -61,7 +62,7 @@ public class KFrame extends KContainer {
 
     @Override
     protected void processMouseEvent(MouseEvent event) {
-        if (menuBar == null || !menuBar.contains(event.getX(), event.getY())) {
+        if (menuBar == null || !menuBar.isMenuOpened()) {
             contentPane.processMouseEvent(event);
             super.processMouseEvent(event);
         }

@@ -12,6 +12,18 @@ public class KMenuBar extends KContainer {
         setBorder(true);
     }
 
+    public boolean isMenuOpened() {
+        for (KComponent component : children) {
+            if (component instanceof KMenu) {
+                KMenu menu = (KMenu)component;
+                if (menu.isOpened())
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
     @Override
     public boolean contains(int x, int y) {
         for (KComponent component : children) {

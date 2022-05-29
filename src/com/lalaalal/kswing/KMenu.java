@@ -4,20 +4,26 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class KMenu extends KAbstractButton {
-    private static final int DEFAULT_CONTAINER_WIDTH = 150;
+    public static final BoxModel DEFAULT_MENU_PADDING = new BoxModel(5, 10);
+    public static final BoxModel DEFAULT_MENU_CONTAINER_PADDING = new BoxModel(0);
+    public static final int DEFAULT_CONTAINER_WIDTH = 200;
 
     protected final KContainer container = new KContainer(0, 0, DEFAULT_CONTAINER_WIDTH, WRAP_CONTENT);
 
     public KMenu(String text) {
         super(text);
-        setPadding(5, 10, 5, 10);
+        setPadding(DEFAULT_MENU_PADDING);
         setBorder(false);
         setTextAlignment(Alignment.Left);
 
         container.setLayout(KLinearKLayout.Vertical);
-        container.setPadding(0, 0, 0, 0);
+        container.setPadding(DEFAULT_MENU_CONTAINER_PADDING);
         container.setVisible(false);
         container.setBorder(true);
+    }
+
+    public boolean isOpened() {
+        return container.isVisible();
     }
 
     public void open() {

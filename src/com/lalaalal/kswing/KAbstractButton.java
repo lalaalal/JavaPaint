@@ -4,8 +4,13 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public abstract class KAbstractButton extends KLabel {
-	private Color normalColor = Color.WHITE;
-	private Color hoverColor = Color.GRAY;
+	protected Color normalColor = Color.WHITE;
+	protected Color hoverColor = Color.GRAY;
+
+	protected Color enableTextColor = Color.BLACK;
+	protected Color disableTextColor = Color.GRAY;
+
+	private boolean isEnabled = true;
 
 	public KAbstractButton(String text) {
 		super(text);
@@ -17,6 +22,20 @@ public abstract class KAbstractButton extends KLabel {
 
 	public KAbstractButton(int x, int y, int width, int height, String text) {
 		super(x, y, width, height, text);
+	}
+
+	public boolean isEnabled() {
+		return isEnabled;
+	}
+
+	public void enable() {
+		isEnabled = true;
+		setTextColor(enableTextColor);
+	}
+
+	public void disable() {
+		isEnabled = false;
+		setTextColor(disableTextColor);
 	}
 
 	@Override
@@ -33,7 +52,7 @@ public abstract class KAbstractButton extends KLabel {
 	protected void processMouseMotionEvent(MouseEvent event) {
 		super.processMouseMotionEvent(event);
 
-		if (contains(event.getX(), event.getY()))
+		if (contains(event.getX(), event.getY()) && isEnabled)
 			super.setBackgroundColor(hoverColor);
 		else
 			super.setBackgroundColor(normalColor);
@@ -41,9 +60,10 @@ public abstract class KAbstractButton extends KLabel {
 
 	@Override
 	protected void processMouseEvent(MouseEvent event) {
-		super.processMouseEvent(event);
+		if (isEnabled)
+			super.processMouseEvent(event);
 
-		if (super.contains(event.getX(), event.getY()))
+		if (super.contains(event.getX(), event.getY()) && isEnabled)
 			super.setBackgroundColor(hoverColor);
 		else
 			super.setBackgroundColor(normalColor);
