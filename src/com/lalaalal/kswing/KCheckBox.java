@@ -26,6 +26,7 @@ public class KCheckBox extends KAbstractButton {
 
     private void init() {
         setBorder(false);
+        setHoverColor(getBackgroundColor());
         checkIcon.setPadding(0, 5, 0, 5);
         checkIcon.addActionListener(event -> toggle());
     }

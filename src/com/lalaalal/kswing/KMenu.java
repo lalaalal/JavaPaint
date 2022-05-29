@@ -22,12 +22,10 @@ public class KMenu extends KAbstractButton {
 
     public void open() {
         container.setVisible(true);
-        setBackgroundColor(Color.GRAY);
     }
 
     public void close() {
         container.setVisible(false);
-        setBackgroundColor(Color.WHITE);
     }
 
     public boolean toggle() {
@@ -50,7 +48,8 @@ public class KMenu extends KAbstractButton {
 
     @Override
     public boolean contains(int x, int y) {
-        return super.contains(x, y)
+        return ((this.x < x && x < this.x + getWidth())
+                && (this.y < y && y <= this.y + getHeight()))
                 || (container.isVisible() && container.contains(x, y));
     }
 

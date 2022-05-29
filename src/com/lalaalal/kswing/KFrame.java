@@ -56,6 +56,7 @@ public class KFrame extends KContainer {
 
         if (menuBar != null)
             menuBar.processMouseMotionEvent(event);
+
     }
 
     @Override
