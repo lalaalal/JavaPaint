@@ -21,12 +21,23 @@ public class KContainer extends KComponent {
     public void add(KComponent component) {
         children.add(component);
         component.setParent(this);
+        component.move(x, y);
 
         repaint();
     }
 
     public void setLayout(KLayoutManager layout) {
         this.layout = layout;
+    }
+
+    @Override
+    public boolean contains(int x, int y) {
+        for (KComponent component : children) {
+            if (component.contains(x, y))
+                return true;
+        }
+
+        return super.contains(x, y);
     }
 
     @Override

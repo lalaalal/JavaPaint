@@ -8,8 +8,8 @@ public class KLabel extends KComponent {
 	}
 
 	private String text;
-	private int textX;
-	private int textY;
+	protected int textX;
+	protected int textY;
 
 	private Color textColor = Color.BLACK;
 	private Color borderColor = Color.BLACK;

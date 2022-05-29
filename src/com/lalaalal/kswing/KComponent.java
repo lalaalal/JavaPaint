@@ -62,6 +62,11 @@ public abstract class KComponent {
 		this.y = y;
 	}
 
+	public void move(int dx, int dy) {
+		this.x += dx;
+		this.y += dy;
+	}
+
 	public int getWidth() {
 		if (width == WRAP_CONTENT || width == MATCH_PARENT)
 			return measuredWidth;

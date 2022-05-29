@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 public class KMenu extends KAbstractButton {
     private static final int DEFAULT_CONTAINER_WIDTH = 150;
 
-    private final KContainer container = new KContainer(0, 0, DEFAULT_CONTAINER_WIDTH, WRAP_CONTENT);
+    protected final KContainer container = new KContainer(0, 0, DEFAULT_CONTAINER_WIDTH, WRAP_CONTENT);
 
     public KMenu(String text) {
         super(text);
@@ -68,7 +68,7 @@ public class KMenu extends KAbstractButton {
     @Override
     protected void measureContentSize(Graphics graphics) {
         super.measureContentSize(graphics);
-        container.setPoint(x, y + getHeight() + container.margin.top);
+        container.setPoint(x + container.margin.left, y + getHeight() + container.margin.top);
     }
 
     @Override
