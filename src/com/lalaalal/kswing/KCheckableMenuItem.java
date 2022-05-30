@@ -20,6 +20,14 @@ public class KCheckableMenuItem extends KMenuItem {
         isChecked = !isChecked;
     }
 
+    public void setChecked(boolean value) {
+        isChecked = value;
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
     @Override
     protected void measureSize(Graphics graphics) {
         super.measureSize(graphics);

@@ -108,6 +108,9 @@ public class KContainer extends KComponent {
         if (layout != null)
             layout.adjustComponents(children, this);
 
+        graphics.setColor(getBackgroundColor());
+        graphics.fillRect(x, y, getWidth(), getHeight());
+
         int i = 0;
         while (i < children.size()) {
             KComponent component = children.get(i);
@@ -115,7 +118,9 @@ public class KContainer extends KComponent {
             i++;
         }
 
-        if (showBorder)
+        if (showBorder) {
+            graphics.setColor(getBorderColor());
             graphics.drawRect(x, y, getWidth(), getHeight());
+        }
     }
 }

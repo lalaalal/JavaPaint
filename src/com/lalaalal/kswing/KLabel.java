@@ -12,8 +12,6 @@ public class KLabel extends KComponent {
 	protected int textY;
 
 	private Color textColor = Color.BLACK;
-	private Color borderColor = Color.BLACK;
-	private Color backgroundColor = Color.WHITE;
 	private Font font = new Font("Sans", Font.PLAIN, 12);
 
 	private Alignment alignment = Alignment.Center;
@@ -42,21 +40,8 @@ public class KLabel extends KComponent {
 		return text;
 	}
 
-	public void setBorderColor(Color borderColor) {
-		this.borderColor = borderColor;
-	}
-
 	public void setTextColor(Color textColor) {
 		this.textColor = textColor;
-	}
-
-	public void setBackgroundColor(Color backgroundColor) {
-		this.backgroundColor = backgroundColor;
-		repaint();
-	}
-
-	public Color getBackgroundColor() {
-		return backgroundColor;
 	}
 
 	public void setFont(Font font) {
@@ -103,14 +88,14 @@ public class KLabel extends KComponent {
 
 	@Override
 	protected void paintContent(Graphics graphics) {
-		graphics.setColor(backgroundColor);
+		graphics.setColor(getBackgroundColor());
 		graphics.fillRect(x, y, getWidth(), getHeight());
 
 		graphics.setColor(textColor);
 		graphics.drawString(text, textX, textY);
 
 		if (showBorder) {
-			graphics.setColor(borderColor);
+			graphics.setColor(getBorderColor());
 			graphics.drawRect(x, y, getWidth(), getHeight());
 		}
 	}

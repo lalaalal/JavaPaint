@@ -47,6 +47,9 @@ public abstract class KComponent {
 
 	private boolean isVisible = true;
 	protected boolean showBorder = true;
+	private Color borderColor = Color.BLACK;
+	private Color backgroundColor = Color.WHITE;
+
 	private final ArrayList<KActionListener> actionListeners = new ArrayList<>();
 	private final ArrayList<KMouseListener> mouseListeners = new ArrayList<>();
 
@@ -153,12 +156,37 @@ public abstract class KComponent {
 		showBorder = value;
 	}
 
+	public void setBorderColor(Color borderColor) {
+		this.borderColor = borderColor;
+	}
+
+	public Color getBorderColor() {
+		return borderColor;
+	}
+
+	public void setBackgroundColor(Color backgroundColor) {
+		this.backgroundColor = backgroundColor;
+		repaint();
+	}
+
+	public Color getBackgroundColor() {
+		return backgroundColor;
+	}
+
 	public void addActionListener(KActionListener listener) {
 		this.actionListeners.add(listener);
 	}
 
+	public void removeActionListener(KActionListener listener) {
+		actionListeners.remove(listener);
+	}
+
 	public void addMouseListener(KMouseListener listener) {
 		this.mouseListeners.add(listener);
+	}
+
+	public void removeMouseListener(KMouseListener listener) {
+		mouseListeners.remove(listener);
 	}
 
 	protected void processMouseMotionEvent(MouseEvent event) {
@@ -166,6 +194,9 @@ public abstract class KComponent {
 	}
 
 	protected void processMouseEvent(MouseEvent event) {
+		if (!contains(event.getX(), event.getY()))
+			return;
+
 		for (KActionListener listener : actionListeners)
 			listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Action"));
 
