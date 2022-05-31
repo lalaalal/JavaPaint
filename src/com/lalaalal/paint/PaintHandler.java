@@ -50,7 +50,6 @@ public class PaintHandler extends Subject {
         }
 
         this.currentMode = mode;
-        figureHandler.unselectFigures();
         notifyObservers();
     }
 

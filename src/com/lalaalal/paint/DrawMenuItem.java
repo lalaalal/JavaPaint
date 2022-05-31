@@ -3,6 +3,7 @@ package com.lalaalal.paint;
 import com.lalaalal.kswing.KActionListener;
 import com.lalaalal.kswing.KCheckableMenuItem;
 import com.lalaalal.paint.figure.Figure;
+import com.lalaalal.paint.figure.FigureHandler;
 import com.lalaalal.paint.mode.Mode;
 
 import java.awt.event.ActionEvent;
@@ -26,7 +27,9 @@ public class DrawMenuItem extends KCheckableMenuItem implements Observer {
             if (source instanceof KCheckableMenuItem) {
                 KCheckableMenuItem checkableMenuItem = (KCheckableMenuItem)source;
                 if (checkableMenuItem.isChecked()) {
-                    paintHandler.getFigureHandler().setFigureType(figureType);
+                    FigureHandler figureHandler = paintHandler.getFigureHandler();
+                    figureHandler.unselectFigures();
+                    figureHandler.setFigureType(figureType);
                     paintHandler.setMode(mode);
                 }
 

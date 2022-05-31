@@ -27,11 +27,17 @@ public class KMenu extends KAbstractButton {
     }
 
     public void open() {
-        container.setVisible(true);
+        if (!container.isVisible()) {
+            container.setVisible(true);
+            repaint();
+        }
     }
 
     public void close() {
-        container.setVisible(false);
+        if (container.isVisible()) {
+            container.setVisible(false);
+            repaint();
+        }
     }
 
     public boolean toggle() {

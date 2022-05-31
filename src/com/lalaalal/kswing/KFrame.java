@@ -15,7 +15,6 @@ public class KFrame extends KContainer {
         super(0, 0);
         this.adapterFrame = adapterFrame;
         setContentPane(new KPanel());
-        contentPane.setParent(this);
         contentPane.setBorder(true);
         setPadding(0, 0, 0, 0);
     }
@@ -34,6 +33,11 @@ public class KFrame extends KContainer {
         this.menuBar = menuBar;
         this.menuBar.setParent(this);
         repaint();
+    }
+
+    @Override
+    public int getContentWidth() {
+        return super.getContentWidth() - adapterFrame.getInsets().left;
     }
 
     @Override
@@ -83,11 +87,19 @@ public class KFrame extends KContainer {
 
         int menuBarHeight = 0;
         if (menuBar != null) {
-            menuBar.setPoint(x, adapterFrame.getInsets().top);
+            menuBar.setPoint(adapterFrame.getInsets().left, adapterFrame.getInsets().top);
             menuBarHeight = menuBar.getHeight();
         }
 
-        contentPane.setPoint(x, menuBarHeight + adapterFrame.getInsets().top);
+        contentPane.setPoint(adapterFrame.getInsets().left, menuBarHeight + adapterFrame.getInsets().top);
+    }
+
+    @Override
+    public void paint(Graphics graphics) {
+        if (isVisible()) {
+            measureSize(graphics);
+            paintContent(graphics);
+        }
     }
 
     @Override
