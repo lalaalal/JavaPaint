@@ -34,6 +34,8 @@ public class GroupFiguresCommand implements Command {
 
     @Override
     public void redo() {
+        FigureHandler figureHandler = paintHandler.getFigureHandler();
+        figureHandler.selectFigures(selectedFigures);
         execute();
     }
 }

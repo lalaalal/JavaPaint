@@ -11,7 +11,7 @@ public class FigureHandler extends Subject {
 
     private final ArrayList<Figure> copiedFigures = new ArrayList<>();
 
-    private static final Point CLONE_FIGURES_DELTA = new Point(10, 10);
+    private static final Point COPIED_FIGURES_DELTA = new Point(20, 20);
 
     private static final Color SELECTED_AREA_COLOR = Color.GRAY;
     private static final int SELECTED_AREA_MARGIN = 10;
@@ -57,6 +57,14 @@ public class FigureHandler extends Subject {
         return figures;
     }
 
+    public ArrayList<Figure> getCopiedFigures() {
+        return copiedFigures;
+    }
+
+    public void setCopiedFigures(ArrayList<Figure> copiedFigures) {
+        this.copiedFigures.addAll(copiedFigures);
+    }
+
     public void selectFigure(Figure figure) {
         selectedFigures.clear();
         selectedFigures.add(figure);
@@ -97,7 +105,7 @@ public class FigureHandler extends Subject {
         return selectedFigures;
     }
 
-    public boolean isSelected() {
+    public boolean hasSelectedFigures() {
         return !selectedFigures.isEmpty();
     }
 
@@ -170,9 +178,9 @@ public class FigureHandler extends Subject {
         copiedFigures.clear();
         for (Figure figure : selectedFigures) {
             Figure copy = figure.copy();
-            copy.move(CLONE_FIGURES_DELTA.x, CLONE_FIGURES_DELTA.x);
             copiedFigures.add(copy);
         }
+        notifyObservers();
     }
 
     public void cutSelectedFigures() {
@@ -182,9 +190,19 @@ public class FigureHandler extends Subject {
     }
 
     public void pasteSelectedFigures() {
-        figures.addAll(copiedFigures);
-        selectedFigures.clear();;
+        pasteFigures(copiedFigures);
+    }
+
+    public void pasteFigures(ArrayList<Figure> copiedFigures) {
+        for (Figure copiedFigure : copiedFigures) {
+            copiedFigure.move(COPIED_FIGURES_DELTA.x, COPIED_FIGURES_DELTA.y);
+        }
+
+        this.figures.addAll(copiedFigures);
+        selectedFigures.clear();
         selectedFigures.addAll(copiedFigures);
+
+        copySelectedFigures();
     }
 
     public boolean hasCopiedFigures() {
@@ -214,7 +232,7 @@ public class FigureHandler extends Subject {
         int width = endX - startX;
         int height = endY - startY;
 
-        if (isSelected()) {
+        if (hasSelectedFigures()) {
             graphics.setColor(SELECTED_AREA_COLOR);
             Stroke defaultStroke = graphics.getStroke();
             graphics.setStroke(SELECTED_AREA_STROKE);

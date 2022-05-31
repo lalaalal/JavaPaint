@@ -1,9 +1,8 @@
-package com.lalaalal.paint;
+package com.lalaalal.paint.component;
 
 import com.lalaalal.kswing.KAdapterFrame;
 import com.lalaalal.kswing.KFrame;
-
-import java.awt.*;
+import com.lalaalal.paint.PaintHandler;
 
 public class PaintFrame extends KFrame {
     private final PaintHandler paintHandler = new PaintHandler();

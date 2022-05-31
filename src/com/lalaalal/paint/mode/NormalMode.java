@@ -22,9 +22,9 @@ public class NormalMode extends Mode {
             return null;
         }
 
-        if (!figureHandler.isSelected() || !figureHandler.isSelectedFiguresContain(start)) {
+        if (!figureHandler.hasSelectedFigures() || !figureHandler.isSelectedFiguresContain(start)) {
             figureHandler.selectFigures(start, end);
-            if (!figureHandler.isSelected()) {
+            if (!figureHandler.hasSelectedFigures()) {
                 figureHandler.selectFigure(start);
                 paintHandler.repaint();
                 return new MoveFigureCommand(start, end, paintHandler);

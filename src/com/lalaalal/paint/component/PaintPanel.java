@@ -1,6 +1,7 @@
-package com.lalaalal.paint;
+package com.lalaalal.paint.component;
 
 import com.lalaalal.kswing.KPanel;
+import com.lalaalal.paint.PaintHandler;
 
 import java.awt.*;
 

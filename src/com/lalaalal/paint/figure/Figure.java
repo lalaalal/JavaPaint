@@ -76,6 +76,10 @@ public abstract class Figure {
         return end.y - start.y;
     }
 
+    public void setPoint(int x, int y) {
+        move(x - getStartX(), y - getStartY());
+    }
+
     public void move(int dx, int dy) {
         start.x += dx;
         start.y += dy;

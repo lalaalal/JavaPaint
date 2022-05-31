@@ -1,6 +1,7 @@
-package com.lalaalal.paint;
+package com.lalaalal.paint.component;
 
 import com.lalaalal.kswing.KMenuItem;
+import com.lalaalal.paint.Observer;
 import com.lalaalal.paint.command.CommandManager;
 
 public class RedoMenuItem extends KMenuItem implements Observer {

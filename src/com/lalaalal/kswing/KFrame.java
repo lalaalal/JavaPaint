@@ -1,7 +1,5 @@
 package com.lalaalal.kswing;
 
-import com.sun.istack.internal.NotNull;
-
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
@@ -11,7 +9,7 @@ public class KFrame extends KContainer {
 
     private final KAdapterFrame adapterFrame;
 
-    public KFrame(@NotNull KAdapterFrame adapterFrame) {
+    public KFrame(KAdapterFrame adapterFrame) {
         super(0, 0);
         this.adapterFrame = adapterFrame;
         setContentPane(new KPanel());

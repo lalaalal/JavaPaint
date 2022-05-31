@@ -1,6 +1,8 @@
-package com.lalaalal.paint;
+package com.lalaalal.paint.component;
 
 import com.lalaalal.kswing.KMenuItem;
+import com.lalaalal.paint.Observer;
+import com.lalaalal.paint.PaintHandler;
 import com.lalaalal.paint.command.Command;
 import com.lalaalal.paint.command.GroupFiguresCommand;
 import com.lalaalal.paint.figure.FigureHandler;
@@ -22,7 +24,7 @@ public class GroupMenuItem extends KMenuItem implements Observer {
 
     @Override
     public void update() {
-        if (!figureHandler.isSelected()
+        if (!figureHandler.hasSelectedFigures()
                 || figureHandler.getSelectedFigures().size() == 1) {
             disable();
         } else {

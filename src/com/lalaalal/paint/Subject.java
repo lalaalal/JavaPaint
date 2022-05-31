@@ -1,13 +1,11 @@
 package com.lalaalal.paint;
 
-import com.sun.istack.internal.NotNull;
-
 import java.util.ArrayList;
 
 public class Subject {
     private final ArrayList<Observer> observers = new ArrayList<>();
 
-    public void addObserver(@NotNull Observer observer) {
+    public void addObserver(Observer observer) {
         observers.add(observer);
     }
 

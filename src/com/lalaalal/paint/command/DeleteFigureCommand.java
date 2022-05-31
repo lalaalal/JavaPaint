@@ -6,13 +6,12 @@ import com.lalaalal.paint.figure.FigureHandler;
 
 import java.util.ArrayList;
 
-public class UnGroupFiguresCommand implements Command {
-
+public class DeleteFigureCommand implements Command {
     private final PaintHandler paintHandler;
     private final ArrayList<Figure> backup = new ArrayList<>();
     private final ArrayList<Figure> selectedFigures = new ArrayList<>();
 
-    public UnGroupFiguresCommand(PaintHandler paintHandler) {
+    public DeleteFigureCommand(PaintHandler paintHandler) {
         this.paintHandler = paintHandler;
     }
 
@@ -21,7 +20,7 @@ public class UnGroupFiguresCommand implements Command {
         FigureHandler figureHandler = paintHandler.getFigureHandler();
         backup.addAll(figureHandler.getFigures());
         selectedFigures.addAll(figureHandler.getSelectedFigures());
-        figureHandler.ungroupSelectedFigures();
+        figureHandler.deleteSelectedFigures();
     }
 
     @Override

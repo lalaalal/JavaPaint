@@ -1,7 +1,5 @@
 package com.lalaalal.kswing;
 
-import com.sun.istack.internal.NotNull;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -17,7 +15,7 @@ public class KAdapterFrame extends JFrame {
         setVisible(true);
     }
 
-    public void setKFrame(@NotNull KFrame frame) {
+    public void setKFrame(KFrame frame) {
         this.frame = frame;
         frame.setWidth(getWidth());
         frame.setHeight(getHeight());

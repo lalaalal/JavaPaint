@@ -1,7 +1,9 @@
-package com.lalaalal.paint;
+package com.lalaalal.paint.component;
 
 import com.lalaalal.kswing.KActionListener;
 import com.lalaalal.kswing.KCheckableMenuItem;
+import com.lalaalal.paint.Observer;
+import com.lalaalal.paint.PaintHandler;
 import com.lalaalal.paint.figure.Figure;
 import com.lalaalal.paint.figure.FigureHandler;
 import com.lalaalal.paint.mode.Mode;
