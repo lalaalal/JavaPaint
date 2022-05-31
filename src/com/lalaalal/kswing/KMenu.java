@@ -53,6 +53,12 @@ public class KMenu extends KAbstractButton {
     }
 
     @Override
+    public void setParent(KContainer container) {
+        super.setParent(container);
+        this.container.setParent(container);
+    }
+
+    @Override
     public boolean contains(int x, int y) {
         return ((this.x < x && x < this.x + getWidth())
                 && (this.y < y && y <= this.y + getHeight()))
@@ -62,13 +68,17 @@ public class KMenu extends KAbstractButton {
     @Override
     protected void processMouseMotionEvent(MouseEvent event) {
         super.processMouseMotionEvent(event);
-        container.processMouseMotionEvent(event);
+        if (isOpened())
+            container.processMouseMotionEvent(event);
     }
 
     @Override
     protected void processMouseEvent(MouseEvent event) {
         super.processMouseEvent(event);
-        container.processMouseEvent(event);
+        if (isOpened())
+            container.processMouseEvent(event);
+
+        toggle();
     }
 
     @Override

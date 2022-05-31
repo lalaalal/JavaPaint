@@ -20,8 +20,20 @@ public class Group extends Figure {
         }
     }
 
+    public ArrayList<Figure> getChildren() {
+        return children;
+    }
+
     public void setBorder(boolean value) {
         showBorder = value;
+    }
+
+    @Override
+    public void move(int dx, int dy) {
+        super.move(dx, dy);
+        for (Figure figure : children) {
+            figure.move(dx, dy);
+        }
     }
 
     @Override

@@ -47,6 +47,8 @@ public abstract class KComponent {
 
 	private boolean isVisible = true;
 	protected boolean showBorder = true;
+
+	protected boolean isMeasured = false;
 	private Color borderColor = Color.BLACK;
 	private Color backgroundColor = Color.WHITE;
 
@@ -90,6 +92,8 @@ public abstract class KComponent {
 
 	public void setWidth(int width) {
 		this.width = width;
+
+		isMeasured = false;
 	}
 
 	public int getHeight() {
@@ -104,6 +108,8 @@ public abstract class KComponent {
 
 	public void setHeight(int height) {
 		this.height = height;
+
+		isMeasured = false;
 	}
 
 	public BoxModel getPadding() {
@@ -115,10 +121,14 @@ public abstract class KComponent {
 		padding.left = left;
 		padding.bottom = bottom;
 		padding.right = right;
+
+		isMeasured = false;
 	}
 
 	public void setPadding(BoxModel padding) {
 		this.padding = padding;
+
+		isMeasured = false;
 	}
 
 	public BoxModel getMargin() {
@@ -130,10 +140,14 @@ public abstract class KComponent {
 		margin.left = left;
 		margin.bottom = bottom;
 		margin.right = right;
+
+		isMeasured = false;
 	}
 
 	public void setMargin(BoxModel margin) {
 		this.margin = margin;
+
+		isMeasured = false;
 	}
 
 	public void setParent(KContainer container) {
@@ -165,8 +179,10 @@ public abstract class KComponent {
 	}
 
 	public void setBackgroundColor(Color backgroundColor) {
-		this.backgroundColor = backgroundColor;
-		repaint();
+		if (this.backgroundColor != backgroundColor) {
+			this.backgroundColor = backgroundColor;
+			repaint();
+		}
 	}
 
 	public Color getBackgroundColor() {
@@ -224,7 +240,11 @@ public abstract class KComponent {
 
 	public void paint(Graphics graphics) {
 		if (isVisible) {
-			measureSize(graphics);
+			if (!isMeasured) {
+				measureSize(graphics);
+				isMeasured = true;
+			}
+
 			paintContent(graphics);
 		}
 	}

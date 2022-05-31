@@ -1,11 +1,9 @@
 package com.lalaalal.paint;
 
 import com.lalaalal.kswing.*;
+import com.lalaalal.paint.command.Command;
+import com.lalaalal.paint.command.GroupFiguresCommand;
 import com.lalaalal.paint.figure.Figure;
-import com.lalaalal.paint.mode.CreateFigureMode;
-import com.lalaalal.paint.mode.Mode;
-
-import java.awt.event.ActionEvent;
 
 public class PaintMenuBar extends KMenuBar {
 
@@ -20,15 +18,15 @@ public class PaintMenuBar extends KMenuBar {
 
 
         KMenu editMenu = new KMenu("Edit");
-        KMenuItem undoMenuItem = new KMenuItem("Undo");
-        KMenuItem redoMenuItem = new KMenuItem("Redo");
+        KMenuItem undoMenuItem = new UndoMenuItem(paintHandler.getCommandManager());
+        KMenuItem redoMenuItem = new RedoMenuItem(paintHandler.getCommandManager());
         KMenuItem copyMenuItem = new KMenuItem("Copy");
         KMenuItem cutMenuItem = new KMenuItem("Cut");
         KMenuItem pasteMenuItem = new KMenuItem("Paste");
 
-        KMenuItem groupMenuItem = new KMenuItem("Group");
+        KMenuItem groupMenuItem = new GroupMenuItem(paintHandler);
+        KMenuItem ungroupMenuItem = new UnGroupMenuItem(paintHandler);
 
-        Mode createFigureMode = new CreateFigureMode(paintHandler);
         KSubMenu drawSubMenu = new KSubMenu("Draw");
         KMenuItem rectangleMenuItem = new DrawMenuItem(Figure.Type.Rectangle, paintHandler);
         KMenuItem ovalMenuItem = new DrawMenuItem(Figure.Type.Oval, paintHandler);
@@ -60,6 +58,7 @@ public class PaintMenuBar extends KMenuBar {
         editMenu.addMenuItem(pasteMenuItem);
         editMenu.addDivider();
         editMenu.addMenuItem(groupMenuItem);
+        editMenu.addMenuItem(ungroupMenuItem);
         editMenu.addMenuItem(drawSubMenu);
         editMenu.addMenuItem(lineColorSubMenu);
 

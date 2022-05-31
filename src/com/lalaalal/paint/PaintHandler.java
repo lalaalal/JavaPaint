@@ -21,6 +21,10 @@ public class PaintHandler extends Subject {
         return figureHandler;
     }
 
+    public CommandManager getCommandManager() {
+        return commandManager;
+    }
+
     public Mode getCurrentMode() {
         return currentMode;
     }

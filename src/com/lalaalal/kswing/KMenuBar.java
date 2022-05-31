@@ -3,8 +3,6 @@ package com.lalaalal.kswing;
 import java.awt.event.MouseEvent;
 
 public class KMenuBar extends KContainer {
-    private boolean isOpened = false;
-
     public KMenuBar() {
         super(0, 0, MATCH_PARENT, WRAP_CONTENT);
         setLayout(KLinearKLayout.Horizontal);
@@ -41,7 +39,7 @@ public class KMenuBar extends KContainer {
     protected void processMouseMotionEvent(MouseEvent event) {
         super.processMouseMotionEvent(event);
 
-        if (!isOpened || !contains(event.getX(), event.getY()))
+        if (!isMenuOpened() || !contains(event.getX(), event.getY()))
             return;
         for (KComponent component : children) {
             if (component instanceof KMenu) {
@@ -58,14 +56,12 @@ public class KMenuBar extends KContainer {
     protected void processMouseEvent(MouseEvent event) {
         if (event.getID() != MouseEvent.MOUSE_CLICKED)
             return;
-        if (!contains(event.getX(), event.getY()))
-            isOpened = false;
+
         for (KComponent component : children) {
             if (component instanceof KMenu) {
                 KMenu menu = (KMenu)component;
                 if (menu.contains(event.getX(), event.getY())) {
                     menu.processMouseEvent(event);
-                    isOpened = menu.toggle();
                 } else {
                     menu.close();
                 }
