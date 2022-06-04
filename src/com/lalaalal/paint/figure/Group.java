@@ -7,7 +7,7 @@ public class Group extends Figure {
     private final ArrayList<Figure> children = new ArrayList<>();
 
     private boolean showBorder = false;
-
+    
     public Group(ArrayList<Figure> figures) {
         super(Integer.MAX_VALUE, Integer.MAX_VALUE, 0, 0);
 
@@ -18,6 +18,11 @@ public class Group extends Figure {
             end.y = Math.max(figure.getEndY(), end.y);
             children.add(figure);
         }
+    }
+
+    @Override
+    protected void normalize() {
+
     }
 
     public ArrayList<Figure> getChildren() {

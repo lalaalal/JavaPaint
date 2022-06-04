@@ -36,6 +36,6 @@ public class GroupFiguresCommand implements Command {
     public void redo() {
         FigureHandler figureHandler = paintHandler.getFigureHandler();
         figureHandler.selectFigures(selectedFigures);
-        execute();
+        figureHandler.groupSelectedFigures();
     }
 }

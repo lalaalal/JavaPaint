@@ -3,18 +3,26 @@ package com.lalaalal.paint.figure;
 import java.awt.*;
 
 public class Line extends Figure {
+    private int direction;
+    public static final int BOTTOM_RIGHT = 1;
+    public static final int TOP_RIGHT = -1;
+
     public Line(Point start, Point end) {
         super(start, end);
-    }
 
-    public Line(int x1, int y1, int x2, int y2) {
-        super(x1, y1, x2, y2);
+        if ((end.y - start.y) * (end.x - start.x) > 0)
+            direction = BOTTOM_RIGHT;
+        else
+            direction = TOP_RIGHT;
     }
 
     @Override
     public void paint(Graphics graphics) {
         graphics.setColor(lineColor);
-        graphics.drawLine(getStartX(), getStartY(), getEndX(), getEndY());
+        if (direction == BOTTOM_RIGHT)
+            graphics.drawLine(getStartX(), getStartY(), getEndX(), getEndY());
+        else
+            graphics.drawLine(getStartX(), getEndY(), getEndX(), getStartY());
     }
 
     @Override

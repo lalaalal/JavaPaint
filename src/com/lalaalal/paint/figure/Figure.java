@@ -29,11 +29,15 @@ public abstract class Figure {
     public Figure(Point start, Point end) {
         this.start = new Point(start);
         this.end = new Point(end);
+
+        normalize();
     }
 
     public Figure(int x1, int y1, int x2, int y2) {
         this.start = new Point(x1, y1);
         this.end = new Point(x2, y2);
+
+        normalize();
     }
 
     protected static Point minPoint(Point a, Point b) {
@@ -50,6 +54,14 @@ public abstract class Figure {
 
     protected static Point maxPoint(int x1, int y1, int x2, int y2) {
         return new Point(Math.max(x1, x2), Math.max(y1, y2));
+    }
+
+    protected void normalize() {
+        Point start = this.start;
+        Point end = this.end;
+
+        this.start = minPoint(start, end);
+        this.end = maxPoint(start, end);
     }
 
     public int getStartX() {

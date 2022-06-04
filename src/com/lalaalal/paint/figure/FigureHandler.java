@@ -11,7 +11,7 @@ public class FigureHandler extends Subject {
 
     private final ArrayList<Figure> copiedFigures = new ArrayList<>();
 
-    private static final Point COPIED_FIGURES_DELTA = new Point(20, 20);
+    private static final Point COPIED_FIGURES_INTERVAL = new Point(20, 20);
 
     private static final Color SELECTED_AREA_COLOR = Color.GRAY;
     private static final int SELECTED_AREA_MARGIN = 10;
@@ -46,10 +46,16 @@ public class FigureHandler extends Subject {
 
     public void addFigures(ArrayList<Figure> figures) {
         this.figures.addAll(figures);
+        selectFigures(figures);
     }
 
     public void removeFigure(Figure figure) {
         figures.remove(figure);
+        unselectFigures();
+    }
+
+    public void removeFigures(ArrayList<Figure> figures) {
+        this.figures.removeAll(figures);
         unselectFigures();
     }
 
@@ -62,6 +68,7 @@ public class FigureHandler extends Subject {
     }
 
     public void setCopiedFigures(ArrayList<Figure> copiedFigures) {
+        this.copiedFigures.clear();
         this.copiedFigures.addAll(copiedFigures);
     }
 
@@ -172,14 +179,12 @@ public class FigureHandler extends Subject {
             if (figures.contains(figure))
                 figure.move(to.x - from.x, to.y - from.y);
         }
+        selectFigures(target);
     }
 
     public void copySelectedFigures() {
         copiedFigures.clear();
-        for (Figure figure : selectedFigures) {
-            Figure copy = figure.copy();
-            copiedFigures.add(copy);
-        }
+        copiedFigures.addAll(selectedFigures);
         notifyObservers();
     }
 
@@ -189,20 +194,24 @@ public class FigureHandler extends Subject {
         unselectFigures();
     }
 
-    public void pasteSelectedFigures() {
-        pasteFigures(copiedFigures);
+    public ArrayList<Figure> pasteCopiedFigures() {
+        return pasteFigures(copiedFigures);
     }
 
-    public void pasteFigures(ArrayList<Figure> copiedFigures) {
-        for (Figure copiedFigure : copiedFigures) {
-            copiedFigure.move(COPIED_FIGURES_DELTA.x, COPIED_FIGURES_DELTA.y);
+    public ArrayList<Figure> pasteFigures(ArrayList<Figure> copiedFigures) {
+        ArrayList<Figure> newFigures = new ArrayList<>();
+
+        for (Figure figure : copiedFigures) {
+            Figure copy = figure.copy();
+            copy.move(COPIED_FIGURES_INTERVAL.x, COPIED_FIGURES_INTERVAL.y);
+            newFigures.add(copy);
         }
 
-        this.figures.addAll(copiedFigures);
-        selectedFigures.clear();
-        selectedFigures.addAll(copiedFigures);
+        this.figures.addAll(newFigures);
+        selectFigures(newFigures);
+        setCopiedFigures(newFigures);
 
-        copySelectedFigures();
+        return newFigures;
     }
 
     public boolean hasCopiedFigures() {
@@ -213,31 +222,44 @@ public class FigureHandler extends Subject {
         for (Figure figure : figures)
             figure.paint(graphics);
 
-        if (graphics instanceof Graphics2D)
+        if (graphics instanceof Graphics2D && hasSelectedFigures())
             paintSelectedArea((Graphics2D) graphics);
     }
 
     private void paintSelectedArea(Graphics2D graphics) {
+        Point start = getStartPoint(selectedFigures);
+        Point end = getEndPoint(selectedFigures);
+        int width = end.x - start.x;
+        int height = end.y - start.y;
+
+        graphics.setColor(SELECTED_AREA_COLOR);
+        Stroke defaultStroke = graphics.getStroke();
+        graphics.setStroke(SELECTED_AREA_STROKE);
+        graphics.drawRect(start.x - SELECTED_AREA_MARGIN, start.y - SELECTED_AREA_MARGIN, width + SELECTED_AREA_MARGIN * 2, height + SELECTED_AREA_MARGIN * 2);
+        graphics.setStroke(defaultStroke);
+    }
+
+    public Point getStartPoint(ArrayList<Figure> figures) {
         int startX = Integer.MAX_VALUE;
         int startY = Integer.MAX_VALUE;
+
+        for (Figure figure : figures) {
+            startX = Math.min(startX, figure.getStartX());
+            startY = Math.min(startY, figure.getStartY());
+        }
+
+        return new Point(startX, startY);
+    }
+
+    public Point getEndPoint(ArrayList<Figure> figures) {
         int endX = 0;
         int endY = 0;
 
-        for (Figure figure : selectedFigures) {
-            startX = Math.min(startX, figure.getStartX());
-            startY = Math.min(startY, figure.getStartY());
+        for (Figure figure : figures) {
             endX = Math.max(endX, figure.getEndX());
             endY = Math.max(endY, figure.getEndY());
         }
-        int width = endX - startX;
-        int height = endY - startY;
 
-        if (hasSelectedFigures()) {
-            graphics.setColor(SELECTED_AREA_COLOR);
-            Stroke defaultStroke = graphics.getStroke();
-            graphics.setStroke(SELECTED_AREA_STROKE);
-            graphics.drawRect(startX - SELECTED_AREA_MARGIN, startY - SELECTED_AREA_MARGIN, width + SELECTED_AREA_MARGIN * 2, height + SELECTED_AREA_MARGIN * 2);
-            graphics.setStroke(defaultStroke);
-        }
+        return new Point(endX, endY);
     }
 }

@@ -5,11 +5,11 @@ import java.awt.*;
 public class Oval extends Figure {
 
     public Oval(Point start, Point end) {
-        super(minPoint(start, end), maxPoint(start, end));
+        super(start, end);
     }
 
     public Oval(int x, int y, int width, int height) {
-        super(minPoint(x, y, x + width, y + height), maxPoint(x, y, x + width, y + height));
+        super(x, y, x + width, y + height);
     }
 
     @Override

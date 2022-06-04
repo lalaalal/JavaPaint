@@ -34,6 +34,6 @@ public class DeleteFigureCommand implements Command {
     public void redo() {
         FigureHandler figureHandler = paintHandler.getFigureHandler();
         figureHandler.selectFigures(selectedFigures);
-        execute();
+        figureHandler.deleteSelectedFigures();
     }
 }

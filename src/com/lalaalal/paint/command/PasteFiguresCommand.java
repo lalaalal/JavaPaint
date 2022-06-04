@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class PasteFiguresCommand implements Command {
     private final PaintHandler paintHandler;
+    private ArrayList<Figure> copies;
     private final ArrayList<Figure> selectedFigures = new ArrayList<>();
-    private final ArrayList<Figure> copiedFigures = new ArrayList<>();
 
     public PasteFiguresCommand(PaintHandler paintHandler) {
         this.paintHandler = paintHandler;
@@ -18,22 +18,23 @@ public class PasteFiguresCommand implements Command {
     @Override
     public void execute() {
         FigureHandler figureHandler = paintHandler.getFigureHandler();
-        copiedFigures.addAll(figureHandler.getCopiedFigures());
         selectedFigures.addAll(figureHandler.getSelectedFigures());
-        figureHandler.pasteSelectedFigures();
+        copies = figureHandler.pasteCopiedFigures();
+        paintHandler.repaint();
     }
 
     @Override
     public void undo() {
         FigureHandler figureHandler = paintHandler.getFigureHandler();
-        figureHandler.selectFigures(copiedFigures);
-        figureHandler.deleteSelectedFigures();
+        figureHandler.removeFigures(copies);
         figureHandler.selectFigures(selectedFigures);
+        paintHandler.repaint();
     }
 
     @Override
     public void redo() {
         FigureHandler figureHandler = paintHandler.getFigureHandler();
-        figureHandler.pasteFigures(copiedFigures);
+        figureHandler.addFigures(copies);
+        paintHandler.repaint();
     }
 }

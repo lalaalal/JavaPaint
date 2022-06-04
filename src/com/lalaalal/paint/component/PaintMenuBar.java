@@ -4,6 +4,7 @@ import com.lalaalal.kswing.*;
 import com.lalaalal.paint.PaintHandler;
 import com.lalaalal.paint.UndoMenuItem;
 import com.lalaalal.paint.command.Command;
+import com.lalaalal.paint.command.CutFiguresCommand;
 import com.lalaalal.paint.command.DeleteFigureCommand;
 import com.lalaalal.paint.command.PasteFiguresCommand;
 import com.lalaalal.paint.figure.Figure;
@@ -33,10 +34,10 @@ public class PaintMenuBar extends KMenuBar {
         KMenu editMenu = new KMenu("Edit");
         KMenuItem undoMenuItem = new UndoMenuItem(paintHandler.getCommandManager());
         KMenuItem redoMenuItem = new RedoMenuItem(paintHandler.getCommandManager());
-        ObserverMenuItem deleteMenuItem = new ObserverMenuItem(paintHandler, paintHandler.getFigureHandler(), "Delete");
-        ObserverMenuItem copyMenuItem = new ObserverMenuItem(paintHandler, paintHandler.getFigureHandler(), "Copy");
-        ObserverMenuItem cutMenuItem = new ObserverMenuItem(paintHandler, paintHandler.getFigureHandler(), "Cut");
-        ObserverMenuItem pasteMenuItem = new ObserverMenuItem(paintHandler, paintHandler.getFigureHandler(), "Paste");
+        ObserverMenuItem deleteMenuItem = new ObserverMenuItem(paintHandler.getFigureHandler(), "Delete");
+        ObserverMenuItem copyMenuItem = new ObserverMenuItem(paintHandler.getFigureHandler(), "Copy");
+        ObserverMenuItem cutMenuItem = new ObserverMenuItem(paintHandler.getFigureHandler(), "Cut");
+        ObserverMenuItem pasteMenuItem = new ObserverMenuItem(paintHandler.getFigureHandler(), "Paste");
 
         deleteMenuItem.addActionListener(event -> {
             Command command = new DeleteFigureCommand(paintHandler);
@@ -55,7 +56,10 @@ public class PaintMenuBar extends KMenuBar {
             else copyMenuItem.disable();
         });
         copyMenuItem.disable();
-        cutMenuItem.addActionListener(event -> paintHandler.getFigureHandler().cutSelectedFigures());
+        cutMenuItem.addActionListener(event -> {
+            Command command = new CutFiguresCommand(paintHandler);
+            paintHandler.executeCommand(command);
+        });
         cutMenuItem.setObserver(() -> {
             if (paintHandler.getFigureHandler().hasSelectedFigures())
                 cutMenuItem.enable();

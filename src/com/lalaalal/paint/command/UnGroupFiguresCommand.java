@@ -35,6 +35,6 @@ public class UnGroupFiguresCommand implements Command {
     public void redo() {
         FigureHandler figureHandler = paintHandler.getFigureHandler();
         figureHandler.selectFigures(selectedFigures);
-        execute();
+        figureHandler.ungroupSelectedFigures();
     }
 }
