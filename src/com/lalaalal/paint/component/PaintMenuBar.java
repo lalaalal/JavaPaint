@@ -16,12 +16,16 @@ public class PaintMenuBar extends KMenuBar {
         KMenuItem saveMenuItem = new KMenuItem("Save");
         KMenuItem saveAsMenuItem = new KMenuItem("Save As");
         KMenuItem loadMenuItem = new KMenuItem("Load");
+
         fileMenu.addMenuItem(saveMenuItem);
         fileMenu.addMenuItem(saveAsMenuItem);
         fileMenu.addMenuItem(loadMenuItem);
 
         KMenu viewMenu = new KMenu("View");
-        KMenuItem showGroupBorderMenuItem = new KCheckableMenuItem("Show Group Border");
+        KCheckableMenuItem showGroupBorderMenuItem = new KCheckableMenuItem("Show Group Border");
+        showGroupBorderMenuItem.addActionListener(event -> {
+            paintHandler.getFigureHandler().setShowGroupBorder(showGroupBorderMenuItem.isChecked());
+        });
 
         viewMenu.addMenuItem(showGroupBorderMenuItem);
 

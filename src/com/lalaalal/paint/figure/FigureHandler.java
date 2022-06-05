@@ -18,6 +18,7 @@ public class FigureHandler extends Subject {
 
     private static final float[] DASH = { 10, 7f };
     private static final BasicStroke SELECTED_AREA_STROKE = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, DASH, 0);
+    private boolean showGroupBorder = false;
 
     private Figure.Type figureType = Figure.Type.Rectangle;
 
@@ -218,15 +219,29 @@ public class FigureHandler extends Subject {
         return !copiedFigures.isEmpty();
     }
 
+    public void setShowGroupBorder(boolean value) {
+        showGroupBorder = value;
+    }
+
+    public boolean isShowGroupBorder() {
+        return showGroupBorder;
+    }
+
     public void paint(Graphics graphics) {
         for (Figure figure : figures)
             figure.paint(graphics);
 
-        if (graphics instanceof Graphics2D && hasSelectedFigures())
+        if (graphics instanceof Graphics2D) {
             paintSelectedArea((Graphics2D) graphics);
+            paintGroupBorder((Graphics2D) graphics);
+        }
+
     }
 
     private void paintSelectedArea(Graphics2D graphics) {
+        if (!hasSelectedFigures())
+            return;
+
         Point start = getStartPoint(selectedFigures);
         Point end = getEndPoint(selectedFigures);
         int width = end.x - start.x;
@@ -239,7 +254,7 @@ public class FigureHandler extends Subject {
         graphics.setStroke(defaultStroke);
     }
 
-    public Point getStartPoint(ArrayList<Figure> figures) {
+    private Point getStartPoint(ArrayList<Figure> figures) {
         int startX = Integer.MAX_VALUE;
         int startY = Integer.MAX_VALUE;
 
@@ -251,7 +266,7 @@ public class FigureHandler extends Subject {
         return new Point(startX, startY);
     }
 
-    public Point getEndPoint(ArrayList<Figure> figures) {
+    private Point getEndPoint(ArrayList<Figure> figures) {
         int endX = 0;
         int endY = 0;
 
@@ -261,5 +276,20 @@ public class FigureHandler extends Subject {
         }
 
         return new Point(endX, endY);
+    }
+
+    private void paintGroupBorder(Graphics2D graphics) {
+        if (!showGroupBorder)
+            return;
+
+        for (Figure figure : figures) {
+            if (figure instanceof Group) {
+                Stroke defaultStroke = graphics.getStroke();
+                graphics.setColor(SELECTED_AREA_COLOR);
+                graphics.setStroke(SELECTED_AREA_STROKE);
+                graphics.drawRect(figure.getStartX(), figure.getStartY(), figure.getWidth(), figure.getHeight());
+                graphics.setStroke(defaultStroke);
+            }
+        }
     }
 }
