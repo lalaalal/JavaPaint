@@ -11,6 +11,7 @@ import com.lalaalal.paint.figure.Figure;
 import java.awt.*;
 
 public class PaintToolBar extends KTabbedPanel {
+    private static final BoxModel DIVIDER_MARGIN = new BoxModel(0, 10);
 
     public PaintToolBar(PaintHandler paintHandler) {
 
@@ -22,10 +23,17 @@ public class PaintToolBar extends KTabbedPanel {
     }
 
     private KContainer createHomeTab(PaintHandler paintHandler) {
-        KVerticalDivider divider = new KVerticalDivider(0);
-        divider.setMargin(0, 10, 0, 10);
-
         KContainer homeTab = new KContainer(MATCH_PARENT, WRAP_CONTENT);
+
+        TitleContainer saveContainer = new TitleContainer("Save & Load");
+        KButton saveButton = new KButton("Save");
+        saveButton.setBorder(false);
+        saveButton.addActionListener(event -> paintHandler.save());
+        KButton loadButton = new KButton("Load");
+        loadButton.setBorder(false);
+        loadButton.addActionListener(event -> paintHandler.load());
+        saveContainer.add(saveButton);
+        saveContainer.add(loadButton);
 
         TitleContainer commandContainer = new TitleContainer("Command");
         KButton undoButton = new CommandButton(CommandActionListener.CommandType.Undo, paintHandler.getCommandManager());
@@ -43,17 +51,16 @@ public class PaintToolBar extends KTabbedPanel {
         copyPasteContainer.add(cutButton);
         copyPasteContainer.add(pasteButton);
 
+        homeTab.add(saveContainer);
+        homeTab.add(new KVerticalDivider(0, DIVIDER_MARGIN));
         homeTab.add(commandContainer);
-        homeTab.add(divider);
+        homeTab.add(new KVerticalDivider(0, DIVIDER_MARGIN));
         homeTab.add(copyPasteContainer);
 
         return homeTab;
     }
 
     private KContainer createFigureTab(PaintHandler paintHandler) {
-        KVerticalDivider divider = new KVerticalDivider(0);
-        divider.setMargin(0, 10, 0, 10);
-
         KContainer figureTab = new KContainer(MATCH_PARENT, WRAP_CONTENT);
 
         TitleContainer drawContainer = new TitleContainer("Draw");
@@ -71,20 +78,17 @@ public class PaintToolBar extends KTabbedPanel {
         groupContainer.add(ungroupButton);
 
         figureTab.add(drawContainer);
-        figureTab.add(divider);
+        figureTab.add(new KVerticalDivider(0, DIVIDER_MARGIN));
         figureTab.add(groupContainer);
 
         return figureTab;
     }
 
     private KContainer createColorTab(PaintHandler paintHandler) {
-        KVerticalDivider divider = new KVerticalDivider(0);
-        divider.setMargin(0, 10, 0, 10);
-
         KContainer colorTab = new KContainer(MATCH_PARENT, WRAP_CONTENT);
 
         colorTab.add(createLineColorContainer(paintHandler));
-        colorTab.add(divider);
+        colorTab.add(new KVerticalDivider(0, DIVIDER_MARGIN));
         colorTab.add(createBackgroundColorContainer(paintHandler));
 
         return colorTab;

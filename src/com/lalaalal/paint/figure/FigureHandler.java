@@ -304,4 +304,10 @@ public class FigureHandler extends Subject {
             }
         }
     }
+
+    public void clear() {
+        figures.clear();
+        selectedFigures.clear();
+        notifyObservers();
+    }
 }

@@ -1,8 +1,9 @@
 package com.lalaalal.paint.figure;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public abstract class Figure {
+public abstract class Figure implements Serializable {
     public enum Type {
         Rectangle, Oval, Line
     }

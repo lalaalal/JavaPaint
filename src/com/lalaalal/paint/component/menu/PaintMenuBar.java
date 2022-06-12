@@ -15,11 +15,11 @@ public class PaintMenuBar extends KMenuBar {
     public PaintMenuBar(PaintHandler paintHandler) {
         KMenu fileMenu = new KMenu("File");
         KMenuItem saveMenuItem = new KMenuItem("Save");
-        KMenuItem saveAsMenuItem = new KMenuItem("Save As");
+        saveMenuItem.addActionListener(event -> paintHandler.save());
         KMenuItem loadMenuItem = new KMenuItem("Load");
+        loadMenuItem.addActionListener(event -> paintHandler.load());
 
         fileMenu.addMenuItem(saveMenuItem);
-        fileMenu.addMenuItem(saveAsMenuItem);
         fileMenu.addMenuItem(loadMenuItem);
 
         KMenu viewMenu = new KMenu("View");

@@ -14,4 +14,11 @@ public class KVerticalDivider extends KLabel {
         setBorder(true);
         setBorderColor(Color.GRAY);
     }
+
+    public KVerticalDivider(int width, BoxModel margin) {
+        super(width, MATCH_PARENT, "");
+        setBorder(true);
+        setBorderColor(Color.GRAY);
+        setMargin(margin);
+    }
 }
