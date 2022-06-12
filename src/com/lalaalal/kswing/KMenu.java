@@ -55,7 +55,7 @@ public class KMenu extends KAbstractButton {
     }
 
     public void addDivider() {
-        addMenuItem(new KMenuItemDivider());
+        addMenuItem(new KHorizontalDivider());
     }
 
     @Override

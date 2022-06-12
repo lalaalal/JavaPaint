@@ -104,8 +104,16 @@ public abstract class Figure {
         this.backgroundColor = backgroundColor;
     }
 
+    public Color getBackgroundColor() {
+        return backgroundColor;
+    }
+
     public void setLineColor(Color lineColor) {
         this.lineColor = lineColor;
+    }
+
+    public Color getLineColor() {
+        return lineColor;
     }
 
     public boolean contains(Point point) {

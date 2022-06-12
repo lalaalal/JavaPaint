@@ -2,12 +2,10 @@ package com.lalaalal.paint.component;
 
 import com.lalaalal.kswing.*;
 import com.lalaalal.paint.PaintHandler;
-import com.lalaalal.paint.UndoMenuItem;
-import com.lalaalal.paint.command.Command;
-import com.lalaalal.paint.command.CutFiguresCommand;
-import com.lalaalal.paint.command.DeleteFigureCommand;
-import com.lalaalal.paint.command.PasteFiguresCommand;
+import com.lalaalal.paint.command.*;
 import com.lalaalal.paint.figure.Figure;
+
+import java.awt.*;
 
 public class PaintMenuBar extends KMenuBar {
 
@@ -36,7 +34,7 @@ public class PaintMenuBar extends KMenuBar {
 
     private KMenu createEditMenu(PaintHandler paintHandler) {
         KMenu editMenu = new KMenu("Edit");
-        KMenuItem undoMenuItem = new UndoMenuItem(paintHandler.getCommandManager());
+        KMenuItem undoMenuItem = new RedoMenuItem.UndoMenuItem(paintHandler.getCommandManager());
         KMenuItem redoMenuItem = new RedoMenuItem(paintHandler.getCommandManager());
         ObserverMenuItem deleteMenuItem = new ObserverMenuItem(paintHandler.getFigureHandler(), "Delete");
         ObserverMenuItem copyMenuItem = new ObserverMenuItem(paintHandler.getFigureHandler(), "Copy");
@@ -93,19 +91,16 @@ public class PaintMenuBar extends KMenuBar {
         drawSubMenu.addMenuItem(lineMenuItem);
 
         KSubMenu lineColorSubMenu = new KSubMenu("Line(Border) Color");
-        KMenuItem blackMenuItem = new KMenuItem("Black");
-        KMenuItem redMenuItem = new KMenuItem("Red");
-        KMenuItem blueMenuItem = new KMenuItem("Blue");
-        KMenuItem yellowMenuItem = new KMenuItem("Yellow");
-        KMenuItem greenMenuItem = new KMenuItem("Green");
-        KMenuItem otherMenuItem = new KMenuItem("Other");
+        KMenuItem blackMenuItem = new ColorMenuItem("Black", Color.BLACK, ChangeFigureColorCommand.Type.Line, paintHandler);
+        KMenuItem redMenuItem = new ColorMenuItem("Red", Color.RED, ChangeFigureColorCommand.Type.Line, paintHandler);
+        KMenuItem blueMenuItem = new ColorMenuItem("Blue", Color.BLUE, ChangeFigureColorCommand.Type.Line, paintHandler);
+        KMenuItem yellowMenuItem = new ColorMenuItem("Yellow", Color.YELLOW, ChangeFigureColorCommand.Type.Line, paintHandler);
+        KMenuItem greenMenuItem = new ColorMenuItem("Green", Color.GREEN, ChangeFigureColorCommand.Type.Line, paintHandler);
         lineColorSubMenu.addMenuItem(blackMenuItem);
         lineColorSubMenu.addMenuItem(redMenuItem);
         lineColorSubMenu.addMenuItem(blueMenuItem);
         lineColorSubMenu.addMenuItem(yellowMenuItem);
         lineColorSubMenu.addMenuItem(greenMenuItem);
-        lineColorSubMenu.addDivider();
-        lineColorSubMenu.addMenuItem(otherMenuItem);
 
         editMenu.addMenuItem(undoMenuItem);
         editMenu.addMenuItem(redoMenuItem);

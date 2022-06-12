@@ -122,6 +122,18 @@ public class FigureHandler extends Subject {
         notifyObservers();
     }
 
+    public void changeBackgroundColor(Color backgroundColor) {
+        for (Figure figure : selectedFigures) {
+            figure.setBackgroundColor(backgroundColor);
+        }
+    }
+
+    public void changeLineColor(Color lineColor) {
+        for (Figure figure : selectedFigures) {
+            figure.setLineColor(lineColor);
+        }
+    }
+
     public void deleteSelectedFigures() {
         figures.removeAll(selectedFigures);
         unselectFigures();

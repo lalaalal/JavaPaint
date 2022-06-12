@@ -25,6 +25,20 @@ public class Group extends Figure {
 
     }
 
+    @Override
+    public void setBackgroundColor(Color backgroundColor) {
+        for (Figure figure : children) {
+            figure.setBackgroundColor(backgroundColor);
+        }
+    }
+
+    @Override
+    public void setLineColor(Color lineColor) {
+        for (Figure figure : children) {
+            figure.setLineColor(lineColor);
+        }
+    }
+
     public ArrayList<Figure> getChildren() {
         return children;
     }

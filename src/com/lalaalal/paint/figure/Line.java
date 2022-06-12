@@ -3,7 +3,7 @@ package com.lalaalal.paint.figure;
 import java.awt.*;
 
 public class Line extends Figure {
-    private int direction;
+    private final int direction;
     public static final int BOTTOM_RIGHT = 1;
     public static final int TOP_RIGHT = -1;
 
@@ -27,6 +27,8 @@ public class Line extends Figure {
 
     @Override
     public Figure copy() {
+        if (direction == TOP_RIGHT)
+            return new Line(new Point(start.x, end.y), new Point(end.x, start.y));
         return new Line(start, end);
     }
 }

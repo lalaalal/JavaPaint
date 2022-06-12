@@ -3,19 +3,19 @@ package com.lalaalal.kswing;
 import java.awt.*;
 import java.util.HashMap;
 
-public class KToolBar extends KContainer {
+public class KTabbedPanel extends KContainer {
     private final KContainer tabContainer = new KContainer(0, 0, MATCH_PARENT, WRAP_CONTENT);
     private final KContainer toolContainer = new KContainer(0, 0, MATCH_PARENT, WRAP_CONTENT);
     private final HashMap<KButton, KContainer> tools = new HashMap<>();
 
     private final BoxModel TAB_PADDING = new BoxModel(7, 20);
 
-    public KToolBar() {
+    public KTabbedPanel() {
         super(0, 0, MATCH_PARENT, WRAP_CONTENT);
         init();
     }
 
-    public KToolBar(int x, int y) {
+    public KTabbedPanel(int x, int y) {
         super(x, y, MATCH_PARENT, WRAP_CONTENT);
         init();
     }
@@ -35,11 +35,11 @@ public class KToolBar extends KContainer {
         add(toolContainer);
     }
 
-    public void addTool(KContainer container, String name) {
+    public void addTab(KContainer container, String name) {
         KButton tab = new KButton(name);
         tab.setPadding(TAB_PADDING);
         tab.setBorder(false);
-        tab.addActionListener(event -> setTool(tab));
+        tab.addActionListener(event -> setTab(tab));
 
         container.setWidth(KComponent.MATCH_PARENT);
         container.setHeight(KComponent.WRAP_CONTENT);
@@ -48,7 +48,7 @@ public class KToolBar extends KContainer {
         tools.put(tab, container);
     }
 
-    private void setTool(KButton tab) {
+    private void setTab(KButton tab) {
         toolContainer.clear();
         toolContainer.add(tools.get(tab));
 
@@ -66,10 +66,10 @@ public class KToolBar extends KContainer {
         repaint();
     }
 
-    public void setTool(String name) {
+    public void setTab(String name) {
         for (KButton tab : tools.keySet()) {
             if (tab.getText().equals(name))
-                setTool(tab);
+                setTab(tab);
         }
     }
 
