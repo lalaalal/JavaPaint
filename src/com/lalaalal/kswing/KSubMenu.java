@@ -19,7 +19,7 @@ public class KSubMenu extends KMenu {
 
     @Override
     protected void processMouseMotionEvent(MouseEvent event) {
-        if (contains(event.getX(), event.getY())) {
+        if (contains(event.getX(), event.getY()) && isEnabled()) {
             open();
         } else {
             close();

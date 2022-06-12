@@ -90,18 +90,6 @@ public class PaintMenuBar extends KMenuBar {
         drawSubMenu.addMenuItem(ovalMenuItem);
         drawSubMenu.addMenuItem(lineMenuItem);
 
-        KSubMenu lineColorSubMenu = new KSubMenu("Line(Border) Color");
-        KMenuItem blackMenuItem = new ColorMenuItem("Black", Color.BLACK, ChangeFigureColorCommand.Type.Line, paintHandler);
-        KMenuItem redMenuItem = new ColorMenuItem("Red", Color.RED, ChangeFigureColorCommand.Type.Line, paintHandler);
-        KMenuItem blueMenuItem = new ColorMenuItem("Blue", Color.BLUE, ChangeFigureColorCommand.Type.Line, paintHandler);
-        KMenuItem yellowMenuItem = new ColorMenuItem("Yellow", Color.YELLOW, ChangeFigureColorCommand.Type.Line, paintHandler);
-        KMenuItem greenMenuItem = new ColorMenuItem("Green", Color.GREEN, ChangeFigureColorCommand.Type.Line, paintHandler);
-        lineColorSubMenu.addMenuItem(blackMenuItem);
-        lineColorSubMenu.addMenuItem(redMenuItem);
-        lineColorSubMenu.addMenuItem(blueMenuItem);
-        lineColorSubMenu.addMenuItem(yellowMenuItem);
-        lineColorSubMenu.addMenuItem(greenMenuItem);
-
         editMenu.addMenuItem(undoMenuItem);
         editMenu.addMenuItem(redoMenuItem);
         editMenu.addDivider();
@@ -113,9 +101,44 @@ public class PaintMenuBar extends KMenuBar {
         editMenu.addMenuItem(groupMenuItem);
         editMenu.addMenuItem(ungroupMenuItem);
         editMenu.addMenuItem(drawSubMenu);
-        editMenu.addMenuItem(lineColorSubMenu);
-
+        editMenu.addMenuItem(createLineColorSubMenu(paintHandler));
+        editMenu.addMenuItem(createBackgroundColorSubMenu(paintHandler));
 
         return editMenu;
+    }
+
+    private KSubMenu createLineColorSubMenu(PaintHandler paintHandler) {
+        KSubMenu lineColorSubMenu = new ColorSubMenu("Line(Border) Color", paintHandler.getFigureHandler());
+        KMenuItem blackMenuItem = new ColorMenuItem("Black", Color.BLACK, ChangeFigureColorCommand.Type.Line, paintHandler);
+        KMenuItem redMenuItem = new ColorMenuItem("Red", Color.RED, ChangeFigureColorCommand.Type.Line, paintHandler);
+        KMenuItem blueMenuItem = new ColorMenuItem("Blue", Color.BLUE, ChangeFigureColorCommand.Type.Line, paintHandler);
+        KMenuItem yellowMenuItem = new ColorMenuItem("Yellow", Color.YELLOW, ChangeFigureColorCommand.Type.Line, paintHandler);
+        KMenuItem greenMenuItem = new ColorMenuItem("Green", Color.GREEN, ChangeFigureColorCommand.Type.Line, paintHandler);
+        lineColorSubMenu.addMenuItem(blackMenuItem);
+        lineColorSubMenu.addMenuItem(redMenuItem);
+        lineColorSubMenu.addMenuItem(blueMenuItem);
+        lineColorSubMenu.addMenuItem(yellowMenuItem);
+        lineColorSubMenu.addMenuItem(greenMenuItem);
+
+        return lineColorSubMenu;
+    }
+
+    private KSubMenu createBackgroundColorSubMenu(PaintHandler paintHandler) {
+        KSubMenu backgroundColorSubMenu = new ColorSubMenu("Background Color", paintHandler.getFigureHandler());
+        KMenuItem blackMenuItem = new ColorMenuItem("Black", Color.BLACK, ChangeFigureColorCommand.Type.Background, paintHandler);
+        KMenuItem redMenuItem = new ColorMenuItem("Red", Color.RED, ChangeFigureColorCommand.Type.Background, paintHandler);
+        KMenuItem blueMenuItem = new ColorMenuItem("Blue", Color.BLUE, ChangeFigureColorCommand.Type.Background, paintHandler);
+        KMenuItem yellowMenuItem = new ColorMenuItem("Yellow", Color.YELLOW, ChangeFigureColorCommand.Type.Background, paintHandler);
+        KMenuItem greenMenuItem = new ColorMenuItem("Green", Color.GREEN, ChangeFigureColorCommand.Type.Background, paintHandler);
+        KMenuItem whiteMenuItem = new ColorMenuItem("White", Color.WHITE, ChangeFigureColorCommand.Type.Background, paintHandler);
+        backgroundColorSubMenu.addMenuItem(blackMenuItem);
+        backgroundColorSubMenu.addMenuItem(redMenuItem);
+        backgroundColorSubMenu.addMenuItem(blueMenuItem);
+        backgroundColorSubMenu.addMenuItem(yellowMenuItem);
+        backgroundColorSubMenu.addMenuItem(greenMenuItem);
+        backgroundColorSubMenu.addMenuItem(whiteMenuItem);
+
+
+        return backgroundColorSubMenu;
     }
 }
