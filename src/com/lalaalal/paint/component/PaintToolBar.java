@@ -2,12 +2,28 @@ package com.lalaalal.paint.component;
 
 import com.lalaalal.kswing.*;
 import com.lalaalal.paint.PaintHandler;
+import com.lalaalal.paint.figure.Figure;
 
 public class PaintToolBar extends KTabbedPanel {
     public PaintToolBar(PaintHandler paintHandler) {
         KContainer figureTab = new KContainer(MATCH_PARENT, WRAP_CONTENT);
-        KButton rectangleButton = new KButton("Rectangle");
-        figureTab.add(rectangleButton);
+
+        TitleContainer drawContainer = new TitleContainer("Draw");
+        KButton rectangleButton = new DrawButton(Figure.Type.Rectangle, paintHandler);
+        KButton ovalButton = new DrawButton(Figure.Type.Oval, paintHandler);
+        KButton lineButton = new DrawButton(Figure.Type.Line, paintHandler);
+        drawContainer.add(rectangleButton);
+        drawContainer.add(ovalButton);
+        drawContainer.add(lineButton);
+
+        TitleContainer groupContainer = new TitleContainer("Group");
+        KButton groupButton = new GroupButton(GroupActionListener.GroupType.Group, paintHandler);
+        KButton ungroupButton = new GroupButton(GroupActionListener.GroupType.Ungroup, paintHandler);
+        groupContainer.add(groupButton);
+        groupContainer.add(ungroupButton);
+
+        figureTab.add(drawContainer);
+        figureTab.add(groupContainer);
 
         KContainer colorTab = new KContainer(MATCH_PARENT, WRAP_CONTENT);
         KButton redButton = new KButton("Red");

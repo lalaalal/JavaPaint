@@ -5,6 +5,7 @@ import com.lalaalal.paint.PaintHandler;
 import com.lalaalal.paint.command.*;
 import com.lalaalal.paint.component.CommandActionListener;
 import com.lalaalal.paint.component.CopyPasteActionListener;
+import com.lalaalal.paint.component.GroupActionListener;
 import com.lalaalal.paint.figure.Figure;
 import com.lalaalal.paint.figure.FigureHandler;
 
@@ -44,8 +45,8 @@ public class PaintMenuBar extends KMenuBar {
         KMenuItem cutMenuItem = new CopyPasteMenuItem(CopyPasteActionListener.CopyPasteType.Cut, paintHandler);
         KMenuItem pasteMenuItem = new CopyPasteMenuItem(CopyPasteActionListener.CopyPasteType.Paste, paintHandler);
 
-        KMenuItem groupMenuItem = new GroupMenuItem(paintHandler);
-        KMenuItem ungroupMenuItem = new UnGroupMenuItem(paintHandler);
+        KMenuItem groupMenuItem = new GroupMenuItem(GroupActionListener.GroupType.Group, paintHandler);
+        KMenuItem ungroupMenuItem = new GroupMenuItem(GroupActionListener.GroupType.Ungroup, paintHandler);
 
         editMenu.addMenuItem(undoMenuItem);
         editMenu.addMenuItem(redoMenuItem);

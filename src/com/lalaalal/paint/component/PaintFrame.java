@@ -10,6 +10,8 @@ public class PaintFrame extends KFrame {
 
     public PaintFrame(KAdapterFrame adapterFrame) {
         super(adapterFrame);
+        setSize(1000, 700);
+
         setContentPane(new PaintPanel(paintHandler));
 
         PaintMenuBar menuBar = new PaintMenuBar(paintHandler);

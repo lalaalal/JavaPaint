@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 
 public class KCheckableMenuItem extends KMenuItem {
     private boolean isChecked = false;
-    private KButton checkLabel = new KButton("V");
+    private final KButton checkLabel = new KButton("V");
 
     private static final BoxModel DEFAULT_CHECK_BUTTON_PADDING = new BoxModel(5, 10);
 

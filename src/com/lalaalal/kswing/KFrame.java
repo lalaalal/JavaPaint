@@ -17,6 +17,10 @@ public class KFrame extends KContainer {
         setPadding(0, 0, 0, 0);
     }
 
+    public void setSize(int width, int height) {
+        adapterFrame.setSize(width, height);
+    }
+
     public KContainer getContentPane() {
         return contentPane;
     }

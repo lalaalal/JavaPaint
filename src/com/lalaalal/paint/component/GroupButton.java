@@ -1,19 +1,19 @@
-package com.lalaalal.paint.component.menu;
+package com.lalaalal.paint.component;
 
-import com.lalaalal.kswing.KMenuItem;
+import com.lalaalal.kswing.KButton;
 import com.lalaalal.paint.Observer;
 import com.lalaalal.paint.PaintHandler;
-import com.lalaalal.paint.command.Command;
-import com.lalaalal.paint.command.GroupFiguresCommand;
-import com.lalaalal.paint.component.GroupActionListener;
 import com.lalaalal.paint.figure.FigureHandler;
 
-public class GroupMenuItem extends KMenuItem implements Observer {
+public class GroupButton extends KButton implements Observer {
     private final GroupActionListener.GroupType type;
     private final FigureHandler figureHandler;
 
-    public GroupMenuItem(GroupActionListener.GroupType type, PaintHandler paintHandler) {
+    public GroupButton(GroupActionListener.GroupType type, PaintHandler paintHandler) {
         super(type.name());
+
+        setBorder(false);
+
         this.type = type;
         this.figureHandler = paintHandler.getFigureHandler();
         this.figureHandler.addObserver(this);
@@ -21,6 +21,7 @@ public class GroupMenuItem extends KMenuItem implements Observer {
         addActionListener(new GroupActionListener(type, paintHandler));
         disable();
     }
+
 
     @Override
     public void update() {
