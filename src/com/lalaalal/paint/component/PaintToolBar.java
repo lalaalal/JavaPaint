@@ -5,7 +5,12 @@ import com.lalaalal.paint.PaintHandler;
 import com.lalaalal.paint.figure.Figure;
 
 public class PaintToolBar extends KTabbedPanel {
+    private KVerticalDivider divider = new KVerticalDivider();
+
     public PaintToolBar(PaintHandler paintHandler) {
+        divider.setWidth(0);
+        divider.setMargin(0, 10, 0, 10);
+
         KContainer figureTab = new KContainer(MATCH_PARENT, WRAP_CONTENT);
 
         TitleContainer drawContainer = new TitleContainer("Draw");
@@ -23,6 +28,7 @@ public class PaintToolBar extends KTabbedPanel {
         groupContainer.add(ungroupButton);
 
         figureTab.add(drawContainer);
+        figureTab.add(divider);
         figureTab.add(groupContainer);
 
         KContainer colorTab = new KContainer(MATCH_PARENT, WRAP_CONTENT);
@@ -42,9 +48,6 @@ public class PaintToolBar extends KTabbedPanel {
         TitleContainer commandContainer = new TitleContainer("Command");
         KButton undoButton = new CommandButton(CommandActionListener.CommandType.Undo, paintHandler.getCommandManager());
         KButton redoButton = new CommandButton(CommandActionListener.CommandType.Redo, paintHandler.getCommandManager());
-        KVerticalDivider divider = new KVerticalDivider();
-        divider.setWidth(0);
-        divider.setMargin(0, 10, 0, 10);
         commandContainer.add(undoButton);
         commandContainer.add(redoButton);
 

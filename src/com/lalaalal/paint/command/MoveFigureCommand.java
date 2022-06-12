@@ -39,7 +39,8 @@ public class MoveFigureCommand implements Command {
     @Override
     public void redo() {
         FigureHandler figureHandler = paintHandler.getFigureHandler();
-        figureHandler.moveFigures(selectedFigures, start, end);
+        figureHandler.selectFigures(selectedFigures);
+        figureHandler.moveSelectedFigures(start, end);
         paintHandler.repaint();
     }
 }

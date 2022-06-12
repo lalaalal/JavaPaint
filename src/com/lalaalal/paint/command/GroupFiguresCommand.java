@@ -11,6 +11,7 @@ public class GroupFiguresCommand implements Command {
 
     private final ArrayList<Figure> backup = new ArrayList<>();
     private final ArrayList<Figure> selectedFigures = new ArrayList<>();
+    private Figure group;
 
     public GroupFiguresCommand(PaintHandler paintHandler) {
         this.paintHandler = paintHandler;
@@ -21,8 +22,11 @@ public class GroupFiguresCommand implements Command {
     public void execute() {
         FigureHandler figureHandler = paintHandler.getFigureHandler();
         backup.addAll(figureHandler.getFigures());
-        figureHandler.groupSelectedFigures();
         selectedFigures.addAll(figureHandler.getSelectedFigures());
+        figureHandler.groupSelectedFigures();
+
+        ArrayList<Figure> figures = figureHandler.getFigures();
+        group = figures.get(figures.size() - 1);
     }
 
     @Override
@@ -35,7 +39,7 @@ public class GroupFiguresCommand implements Command {
     @Override
     public void redo() {
         FigureHandler figureHandler = paintHandler.getFigureHandler();
-        figureHandler.selectFigures(selectedFigures);
-        figureHandler.groupSelectedFigures();
+        figureHandler.removeFigures(selectedFigures);
+        figureHandler.addFigure(group);
     }
 }
