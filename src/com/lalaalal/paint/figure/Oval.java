@@ -23,6 +23,10 @@ public class Oval extends Figure {
 
     @Override
     public Figure copy() {
-        return new Oval(start, end);
+        Figure copy = new Oval(start, end);
+        copy.setBackgroundColor(backgroundColor);
+        copy.setLineColor(lineColor);
+
+        return copy;
     }
 }

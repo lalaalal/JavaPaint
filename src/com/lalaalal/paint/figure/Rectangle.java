@@ -22,6 +22,10 @@ public class Rectangle extends Figure {
 
     @Override
     public Figure copy() {
-        return new Rectangle(start, end);
+        Figure copy =  new Rectangle(start, end);
+        copy.setBackgroundColor(backgroundColor);
+        copy.setLineColor(lineColor);
+
+        return copy;
     }
 }

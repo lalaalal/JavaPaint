@@ -27,8 +27,12 @@ public class Line extends Figure {
 
     @Override
     public Figure copy() {
+        Figure copy = null;
         if (direction == TOP_RIGHT)
-            return new Line(new Point(start.x, end.y), new Point(end.x, start.y));
-        return new Line(start, end);
+            copy = new Line(new Point(start.x, end.y), new Point(end.x, start.y));
+        else copy = new Line(start, end);
+        copy.setLineColor(lineColor);
+
+        return copy;
     }
 }
