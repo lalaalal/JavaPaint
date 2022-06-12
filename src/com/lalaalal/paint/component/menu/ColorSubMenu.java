@@ -1,4 +1,4 @@
-package com.lalaalal.paint.component;
+package com.lalaalal.paint.component.menu;
 
 import com.lalaalal.kswing.KSubMenu;
 import com.lalaalal.paint.Observer;

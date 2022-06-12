@@ -91,6 +91,7 @@ public class KLabel extends KComponent {
 		graphics.setColor(getBackgroundColor());
 		graphics.fillRect(x, y, getWidth(), getHeight());
 
+		graphics.setFont(font);
 		graphics.setColor(textColor);
 		graphics.drawString(text, textX, textY);
 

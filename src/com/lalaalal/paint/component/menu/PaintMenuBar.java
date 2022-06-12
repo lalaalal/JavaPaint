@@ -1,9 +1,12 @@
-package com.lalaalal.paint.component;
+package com.lalaalal.paint.component.menu;
 
 import com.lalaalal.kswing.*;
 import com.lalaalal.paint.PaintHandler;
 import com.lalaalal.paint.command.*;
+import com.lalaalal.paint.component.CommandActionListener;
+import com.lalaalal.paint.component.CopyPasteActionListener;
 import com.lalaalal.paint.figure.Figure;
+import com.lalaalal.paint.figure.FigureHandler;
 
 import java.awt.*;
 
@@ -34,61 +37,15 @@ public class PaintMenuBar extends KMenuBar {
 
     private KMenu createEditMenu(PaintHandler paintHandler) {
         KMenu editMenu = new KMenu("Edit");
-        KMenuItem undoMenuItem = new RedoMenuItem.UndoMenuItem(paintHandler.getCommandManager());
-        KMenuItem redoMenuItem = new RedoMenuItem(paintHandler.getCommandManager());
-        ObserverMenuItem deleteMenuItem = new ObserverMenuItem(paintHandler.getFigureHandler(), "Delete");
-        ObserverMenuItem copyMenuItem = new ObserverMenuItem(paintHandler.getFigureHandler(), "Copy");
-        ObserverMenuItem cutMenuItem = new ObserverMenuItem(paintHandler.getFigureHandler(), "Cut");
-        ObserverMenuItem pasteMenuItem = new ObserverMenuItem(paintHandler.getFigureHandler(), "Paste");
-
-        deleteMenuItem.addActionListener(event -> {
-            Command command = new DeleteFigureCommand(paintHandler);
-            paintHandler.executeCommand(command);
-        });
-        deleteMenuItem.setObserver(() -> {
-            if (paintHandler.getFigureHandler().hasSelectedFigures())
-                deleteMenuItem.enable();
-            else deleteMenuItem.disable();
-        });
-        deleteMenuItem.disable();
-        copyMenuItem.addActionListener(event -> paintHandler.getFigureHandler().copySelectedFigures());
-        copyMenuItem.setObserver(() -> {
-            if (paintHandler.getFigureHandler().hasSelectedFigures())
-                copyMenuItem.enable();
-            else copyMenuItem.disable();
-        });
-        copyMenuItem.disable();
-        cutMenuItem.addActionListener(event -> {
-            Command command = new CutFiguresCommand(paintHandler);
-            paintHandler.executeCommand(command);
-        });
-        cutMenuItem.setObserver(() -> {
-            if (paintHandler.getFigureHandler().hasSelectedFigures())
-                cutMenuItem.enable();
-            else cutMenuItem.disable();
-        });
-        cutMenuItem.disable();
-        pasteMenuItem.addActionListener(event -> {
-            Command command = new PasteFiguresCommand(paintHandler);
-            paintHandler.executeCommand(command);
-        });
-        pasteMenuItem.setObserver(() -> {
-            if (paintHandler.getFigureHandler().hasCopiedFigures())
-                pasteMenuItem.enable();
-            else pasteMenuItem.disable();
-        });
-        pasteMenuItem.disable();
+        KMenuItem undoMenuItem = new CommandMenuItem(CommandActionListener.CommandType.Undo, paintHandler.getCommandManager());
+        KMenuItem redoMenuItem = new CommandMenuItem(CommandActionListener.CommandType.Redo, paintHandler.getCommandManager());
+        KMenuItem deleteMenuItem = new CopyPasteMenuItem(CopyPasteActionListener.CopyPasteType.Delete, paintHandler);
+        KMenuItem copyMenuItem = new CopyPasteMenuItem(CopyPasteActionListener.CopyPasteType.Copy, paintHandler);
+        KMenuItem cutMenuItem = new CopyPasteMenuItem(CopyPasteActionListener.CopyPasteType.Cut, paintHandler);
+        KMenuItem pasteMenuItem = new CopyPasteMenuItem(CopyPasteActionListener.CopyPasteType.Paste, paintHandler);
 
         KMenuItem groupMenuItem = new GroupMenuItem(paintHandler);
         KMenuItem ungroupMenuItem = new UnGroupMenuItem(paintHandler);
-
-        KSubMenu drawSubMenu = new KSubMenu("Draw");
-        KMenuItem rectangleMenuItem = new DrawMenuItem(Figure.Type.Rectangle, paintHandler);
-        KMenuItem ovalMenuItem = new DrawMenuItem(Figure.Type.Oval, paintHandler);
-        KMenuItem lineMenuItem = new DrawMenuItem(Figure.Type.Line, paintHandler);
-        drawSubMenu.addMenuItem(rectangleMenuItem);
-        drawSubMenu.addMenuItem(ovalMenuItem);
-        drawSubMenu.addMenuItem(lineMenuItem);
 
         editMenu.addMenuItem(undoMenuItem);
         editMenu.addMenuItem(redoMenuItem);
@@ -100,11 +57,23 @@ public class PaintMenuBar extends KMenuBar {
         editMenu.addDivider();
         editMenu.addMenuItem(groupMenuItem);
         editMenu.addMenuItem(ungroupMenuItem);
-        editMenu.addMenuItem(drawSubMenu);
+        editMenu.addMenuItem(createDrawSubMenu(paintHandler));
         editMenu.addMenuItem(createLineColorSubMenu(paintHandler));
         editMenu.addMenuItem(createBackgroundColorSubMenu(paintHandler));
 
         return editMenu;
+    }
+
+    private KSubMenu createDrawSubMenu(PaintHandler paintHandler) {
+        KSubMenu drawSubMenu = new KSubMenu("Draw");
+        KMenuItem rectangleMenuItem = new DrawMenuItem(Figure.Type.Rectangle, paintHandler);
+        KMenuItem ovalMenuItem = new DrawMenuItem(Figure.Type.Oval, paintHandler);
+        KMenuItem lineMenuItem = new DrawMenuItem(Figure.Type.Line, paintHandler);
+        drawSubMenu.addMenuItem(rectangleMenuItem);
+        drawSubMenu.addMenuItem(ovalMenuItem);
+        drawSubMenu.addMenuItem(lineMenuItem);
+
+        return drawSubMenu;
     }
 
     private KSubMenu createLineColorSubMenu(PaintHandler paintHandler) {
@@ -137,7 +106,6 @@ public class PaintMenuBar extends KMenuBar {
         backgroundColorSubMenu.addMenuItem(yellowMenuItem);
         backgroundColorSubMenu.addMenuItem(greenMenuItem);
         backgroundColorSubMenu.addMenuItem(whiteMenuItem);
-
 
         return backgroundColorSubMenu;
     }

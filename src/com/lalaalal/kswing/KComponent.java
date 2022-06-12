@@ -213,8 +213,10 @@ public abstract class KComponent {
 		if (!contains(event.getX(), event.getY()))
 			return;
 
-		for (KActionListener listener : actionListeners)
-			listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Action"));
+		if (event.getID() == MouseEvent.MOUSE_CLICKED) {
+			for (KActionListener listener : actionListeners)
+				listener.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Action"));
+		}
 
 		for (KMouseListener listener : mouseListeners) {
 			if (event.getID() == MouseEvent.MOUSE_CLICKED)

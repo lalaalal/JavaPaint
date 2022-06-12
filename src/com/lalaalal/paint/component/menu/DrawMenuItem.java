@@ -1,4 +1,4 @@
-package com.lalaalal.paint.component;
+package com.lalaalal.paint.component.menu;
 
 import com.lalaalal.kswing.KActionListener;
 import com.lalaalal.kswing.KCheckableMenuItem;
