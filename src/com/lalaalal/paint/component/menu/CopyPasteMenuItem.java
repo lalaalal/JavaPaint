@@ -3,7 +3,7 @@ package com.lalaalal.paint.component.menu;
 import com.lalaalal.kswing.KMenuItem;
 import com.lalaalal.paint.Observer;
 import com.lalaalal.paint.PaintHandler;
-import com.lalaalal.paint.component.CopyPasteActionListener;
+import com.lalaalal.paint.component.listener.CopyPasteActionListener;
 import com.lalaalal.paint.figure.FigureHandler;
 
 public class CopyPasteMenuItem extends KMenuItem implements Observer {

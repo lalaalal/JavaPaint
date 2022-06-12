@@ -1,4 +1,4 @@
-package com.lalaalal.paint.component;
+package com.lalaalal.paint.component.listener;
 
 import com.lalaalal.kswing.KActionListener;
 import com.lalaalal.paint.PaintHandler;

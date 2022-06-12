@@ -8,4 +8,10 @@ public class KVerticalDivider extends KLabel {
         setBorder(true);
         setBorderColor(Color.GRAY);
     }
+
+    public KVerticalDivider(int width) {
+        super(width, MATCH_PARENT, "");
+        setBorder(true);
+        setBorderColor(Color.GRAY);
+    }
 }

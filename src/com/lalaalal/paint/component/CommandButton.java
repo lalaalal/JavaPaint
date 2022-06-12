@@ -3,6 +3,7 @@ package com.lalaalal.paint.component;
 import com.lalaalal.kswing.KButton;
 import com.lalaalal.paint.Observer;
 import com.lalaalal.paint.command.CommandManager;
+import com.lalaalal.paint.component.listener.CommandActionListener;
 
 public class CommandButton extends KButton implements Observer {
 

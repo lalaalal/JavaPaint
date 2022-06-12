@@ -3,11 +3,10 @@ package com.lalaalal.paint.component.menu;
 import com.lalaalal.kswing.*;
 import com.lalaalal.paint.PaintHandler;
 import com.lalaalal.paint.command.*;
-import com.lalaalal.paint.component.CommandActionListener;
-import com.lalaalal.paint.component.CopyPasteActionListener;
-import com.lalaalal.paint.component.GroupActionListener;
+import com.lalaalal.paint.component.listener.CommandActionListener;
+import com.lalaalal.paint.component.listener.CopyPasteActionListener;
+import com.lalaalal.paint.component.listener.GroupActionListener;
 import com.lalaalal.paint.figure.Figure;
-import com.lalaalal.paint.figure.FigureHandler;
 
 import java.awt.*;
 

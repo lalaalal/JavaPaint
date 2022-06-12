@@ -13,7 +13,6 @@ public class ChangeFigureColorCommand implements Command {
         Background, Line
     }
 
-    private final PaintHandler paintHandler;
     private final FigureHandler figureHandler;
     private final ArrayList<Figure> figureBackup = new ArrayList<>();
     private final ArrayList<Color> colorBackup = new ArrayList<>();
@@ -21,7 +20,6 @@ public class ChangeFigureColorCommand implements Command {
     private final Type type;
 
     public ChangeFigureColorCommand(PaintHandler paintHandler, Color color, Type type) {
-        this.paintHandler = paintHandler;
         this.figureHandler = paintHandler.getFigureHandler();
         this.color = color;
         this.type = type;

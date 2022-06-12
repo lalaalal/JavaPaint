@@ -3,7 +3,7 @@ package com.lalaalal.paint.component.menu;
 import com.lalaalal.kswing.KCheckableMenuItem;
 import com.lalaalal.paint.Observer;
 import com.lalaalal.paint.PaintHandler;
-import com.lalaalal.paint.component.DrawActionListener;
+import com.lalaalal.paint.component.listener.DrawActionListener;
 import com.lalaalal.paint.figure.Figure;
 import com.lalaalal.paint.mode.Mode;
 
