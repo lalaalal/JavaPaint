@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 
 public class KFrame extends KContainer {
     private KMenuBar menuBar;
+    private KToolBar toolBar;
     private KContainer contentPane;
 
     private final KAdapterFrame adapterFrame;
@@ -37,6 +38,12 @@ public class KFrame extends KContainer {
         repaint();
     }
 
+    public void setToolBar(KToolBar toolBar) {
+        this.toolBar = toolBar;
+        this.toolBar.setParent(this);
+        repaint();
+    }
+
     @Override
     public int getContentWidth() {
         return super.getContentWidth() - adapterFrame.getInsets().left;
@@ -63,7 +70,8 @@ public class KFrame extends KContainer {
 
         if (menuBar != null)
             menuBar.processMouseMotionEvent(event);
-
+        if (toolBar != null)
+            toolBar.processMouseMotionEvent(event);
     }
 
     @Override
@@ -75,6 +83,8 @@ public class KFrame extends KContainer {
 
         if (menuBar != null)
             menuBar.processMouseEvent(event);
+        if (toolBar != null)
+            toolBar.processMouseEvent(event);
     }
 
     @Override
@@ -85,6 +95,8 @@ public class KFrame extends KContainer {
         super.measureSize(graphics);
         if (menuBar != null)
             menuBar.measureSize(graphics);
+        if (toolBar != null)
+            toolBar.measureSize(graphics);
         contentPane.measureSize(graphics);
 
         int menuBarHeight = 0;
@@ -92,8 +104,13 @@ public class KFrame extends KContainer {
             menuBar.setPoint(adapterFrame.getInsets().left, adapterFrame.getInsets().top);
             menuBarHeight = menuBar.getHeight();
         }
+        int toolBarHeight = 0;
+        if (toolBar != null) {
+            toolBar.setPoint(adapterFrame.getInsets().left, adapterFrame.getInsets().top + menuBarHeight);
+            toolBarHeight = toolBar.getHeight();
+        }
 
-        contentPane.setPoint(adapterFrame.getInsets().left, menuBarHeight + adapterFrame.getInsets().top);
+        contentPane.setPoint(adapterFrame.getInsets().left, menuBarHeight + toolBarHeight + adapterFrame.getInsets().top);
     }
 
     @Override
@@ -108,6 +125,8 @@ public class KFrame extends KContainer {
     protected void paintContent(Graphics graphics) {
         super.paintContent(graphics);
         contentPane.paint(graphics);
+        if (toolBar != null)
+            toolBar.paint(graphics);
         if (menuBar != null)
             menuBar.paint(graphics);
     }

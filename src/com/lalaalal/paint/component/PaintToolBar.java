@@ -14,10 +14,10 @@ public class PaintToolBar extends KTabbedPanel {
     private static final BoxModel DIVIDER_MARGIN = new BoxModel(0, 10);
 
     public PaintToolBar(PaintHandler paintHandler) {
-
         addTab(createHomeTab(paintHandler), "Home");
         addTab(createFigureTab(paintHandler), "Figure");
         addTab(createColorTab(paintHandler), "Color");
+        addTab(createAboutTab(), "About");
 
         setTab("Home");
     }
@@ -126,5 +126,26 @@ public class PaintToolBar extends KTabbedPanel {
         backgroundColorContainer.add(whiteButton);
 
         return backgroundColorContainer;
+    }
+
+    private KContainer createAboutTab() {
+        KContainer aboutTab = new KContainer(MATCH_PARENT, WRAP_CONTENT);
+        KLabel author = new KLabel("이창협 (WRAP_CONTENT)");
+        author.setWidth(WRAP_CONTENT);
+        author.setHeight(WRAP_CONTENT);
+        author.setMargin(0, 0, 0, 10);
+        KLabel className = new KLabel("java35 (MATCH_PARENT)");
+        className.setWidth(MATCH_PARENT);
+        className.setHeight(WRAP_CONTENT);
+        className.setMargin(0, 0, 0, 10);
+        KLabel date = new KLabel("2022.06.13 (MATCH_PARENT)");
+        date.setWidth(MATCH_PARENT);
+        date.setHeight(WRAP_CONTENT);
+
+        aboutTab.add(author);
+        aboutTab.add(className);
+        aboutTab.add(date);
+
+        return aboutTab;
     }
 }

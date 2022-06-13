@@ -12,10 +12,8 @@ public class PaintPanel extends KPanel {
 
     public PaintPanel(PaintHandler paintHandler) {
         this.paintHandler = paintHandler;
-        PaintToolBar toolBar = new PaintToolBar(paintHandler);
         KPanel paintArea = new KPanel();
         paintArea.setBorder(true);
-        add(toolBar);
         add(paintArea);
         this.paintHandler.setPaintArea(paintArea);
     }

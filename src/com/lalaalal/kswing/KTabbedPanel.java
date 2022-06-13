@@ -72,9 +72,4 @@ public class KTabbedPanel extends KContainer {
                 setTab(tab);
         }
     }
-
-    @Override
-    protected void paintContent(Graphics graphics) {
-        super.paintContent(graphics);
-    }
 }
