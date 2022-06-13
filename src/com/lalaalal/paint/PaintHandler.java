@@ -81,6 +81,7 @@ public class PaintHandler extends Subject {
 
     public void load() {
         figureHandler.clear();
+        commandManager.clear();
 
         try (FileInputStream fileInputStream = new FileInputStream(SAVE_FILE_NAME)) {
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);

@@ -16,5 +16,6 @@ public class PaintFrame extends KFrame {
 
         PaintMenuBar menuBar = new PaintMenuBar(paintHandler);
         setMenuBar(menuBar);
+        repaint();
     }
 }

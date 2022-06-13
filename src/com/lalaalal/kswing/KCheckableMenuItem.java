@@ -37,12 +37,11 @@ public class KCheckableMenuItem extends KMenuItem {
 
     @Override
     protected void processMouseMotionEvent(MouseEvent event) {
-        super.processMouseMotionEvent(event);
-
         if (contains(event.getX(), event.getY()) && isEnabled())
             checkLabel.setBackgroundColor(hoverColor);
         else
             checkLabel.setBackgroundColor(normalColor);
+        super.processMouseMotionEvent(event);
     }
 
     @Override

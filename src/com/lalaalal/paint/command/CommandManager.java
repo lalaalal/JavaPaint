@@ -36,4 +36,11 @@ public class CommandManager extends Subject {
     public boolean redoable() {
         return !redoStack.isEmpty();
     }
+
+    public void clear() {
+        undoStack.clear();
+        redoStack.clear();
+
+        notifyObservers();
+    }
 }

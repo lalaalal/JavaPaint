@@ -51,7 +51,7 @@ public class KFrame extends KContainer {
 
     @Override
     public void repaint() {
-        adapterFrame.repaint();
+        paint(adapterFrame.getGraphics());
     }
 
     @Override

@@ -29,5 +29,6 @@ public class DrawButton extends KButton implements Observer {
     public void update() {
         Figure.Type selectedType = paintHandler.getFigureHandler().getFigureType();
         setBorder(paintHandler.getCurrentMode() == mode && selectedType == figureType);
+        repaint();
     }
 }
